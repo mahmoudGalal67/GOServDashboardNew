@@ -1,0 +1,20 @@
+.nav-items-profilepage {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.nav-item-profilepage,
+.nav-item-home-profilepage {
+  margin: 0 5px;
+}
+.nav-icon-profilepage {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-profilepage,
+.nav-icon-profilepage {
+  color: var(--main-color) !important;
+}

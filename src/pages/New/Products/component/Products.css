@@ -1,0 +1,27 @@
+.product-flex {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2px;
+}
+
+@media (min-width: 1800px) {
+  .product-flex {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 4px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .product-flex {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+@media (max-width: 1000px) {
+  .product-flex {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+  }
+}
+

@@ -1,0 +1,118 @@
+.mySwiper {
+  width: 95% !important;
+  margin-right: 20px !important;
+  margin-bottom: 15px;
+}
+.swiper-item {
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+  background-color: #e8f1f129;
+  margin: 0;
+  position: relative;
+  border: 1px solid #dddddd;
+  height: 110px;
+  color: black !important;
+  margin-left: 10px !important;
+}
+
+.swiper-item:hover {
+  cursor: pointer;
+}
+
+.icon-Class {
+  font-size: 7px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+}
+
+.flexheadClass {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -10px;
+  width: 100%;
+}
+.clear {
+  width: 20px;
+  height: 20px;
+  background-color: #f55157;
+  border-radius: 50%;
+  display: none;
+}
+.clear .clear-icon {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-item.selected .clear {
+  display: block;
+}
+.flexContenetClass-influencers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  width: 100%;
+}
+.swiper-item.selected {
+  background-color: #007bff61;
+}
+
+.swiper-item.selected .status-circle {
+  background-color: white;
+}
+
+.swiper-item.selected .icon-Class {
+  color: blue !important;
+}
+.flexContenetClass-influencers h3 {
+  font-size: 15px;
+  margin: 0;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+span {
+  font-size: 14px;
+  color: #666;
+}
+.swiper-item.selected .count-span {
+  color: blue !important;
+}
+.swiper-item.selected h3 {
+  color: blue !important;
+}
+.search-container-influencers {
+  display: flex;
+  border-radius: 5px;
+  width: 95%;
+  height: 50px;
+  border: 1px solid #f2f2f2;
+  margin-top: 20px;
+}
+
+.search-input-influencers {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.search-input-influencers:focus {
+  outline: none;
+}
+
+.search-button-influencers {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.search-icon-influencers {
+  color: #bbb !important;
+  font-size: 16px;
+  margin-right: 10px;
+}

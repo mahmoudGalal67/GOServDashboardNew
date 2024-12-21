@@ -1,0 +1,84 @@
+.notifications-container {
+  width: 98%;
+}
+
+.notifications-container-box {
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notifications-container-box h4 {
+  text-align: right;
+  font-size: 20px;
+  background-color: #fcfcfc;
+  padding: 20px;
+}
+
+.notifications-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  border: none !important;
+}
+.notifications-table input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.notifications-table input[type="checkbox"] + label {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  background-color: #ddd;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.notifications-table input[type="checkbox"] + label::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.notifications-table input[type="checkbox"]:checked + label {
+  background-color: var(--main-color);
+}
+
+.notifications-table input[type="checkbox"]:checked + label::after {
+  transform: translateX(24px);
+}
+
+.notifications-table tr {
+  border-bottom: 1px solid #f8f8f8;
+}
+.notifications-table th,
+.notifications-table td {
+  padding: 12px 15px;
+}
+
+.notifications-table th {
+  background-color: #fcfcfc;
+  color: #666;
+}
+
+.notifications-table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .notifications-table th,
+  .notifications-table td {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}

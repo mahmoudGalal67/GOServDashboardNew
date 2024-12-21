@@ -1,0 +1,227 @@
+.header-container-client-head {
+  display: flex;
+  justify-content: space-between !important;
+  width: 75vw !important;
+}
+
+.header-left-client {
+  display: flex;
+}
+.header-right-client {
+  border-radius: 50px !important;
+  text-align: center !important;
+}
+
+.btn-services-client,
+.btn-add-client {
+  margin-right: 15px;
+  border: none !important;
+}
+.btn-services-client,
+.btn-add-client {
+  font-size: 15px;
+}
+.btn-services-client,
+.btn-list {
+  color: gray !important;
+  background-color: transparent !important;
+}
+
+.btn-add-client {
+  background-color: var(--main-color) !important;
+  border-radius: 20px !important;
+  color: #fff !important;
+  border-color: #b2cdf4 !important;
+}
+
+.icon-plus {
+  font-size: 15px !important;
+  color: blue;
+  margin-left: 0 !important;
+}
+
+.icon-toolbox,
+.icon-filter,
+.icon-calender {
+  font-size: 20px !important;
+}
+.icon-calender {
+  margin: 0 5px;
+}
+
+.spanIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.customer-datepicker {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.customer-react-datepicker {
+  font-size: 16px;
+}
+
+.customer-react-datepicker__header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+}
+
+.customer-react-datepicker__current-month {
+  font-weight: bold;
+}
+
+.customer-react-datepicker__day--selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.customer-react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+
+.left-aligned-service-client {
+  position: absolute !important;
+  left: 70px !important;
+  top: 370px !important;
+  padding: 5px !important;
+}
+
+.dropdown-item-service-client {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end !important;
+  cursor: pointer;
+}
+
+.dropdown-item-service-client:hover {
+  background-color: #f1f1f1 !important;
+}
+
+.dropdown-item-service-client {
+  text-align: right;
+}
+
+.dropdown-item-service-client p {
+  margin: 0;
+  color: #6c757d;
+  text-align: right;
+}
+
+.dropdown-item-service-client {
+  position: relative;
+  cursor: pointer;
+}
+.customer-search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.customer-search-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: right;
+  outline: none;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.customer-search-input::placeholder {
+  color: #bfbfbf;
+  padding-right: 30px;
+}
+
+.customer-search-input:focus {
+  border-color: #ccc;
+}
+
+.customer-search-icon {
+  position: absolute;
+  right: 50px;
+  top: 42%;
+  transform: translateY(-50%);
+  color: #ccc;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+@media (max-width: 1320px) {
+  .header-container-client-head {
+    display: flex;
+    justify-content: space-between !important;
+  }
+}
+@media (max-width: 1230px) {
+  .nav-items-client {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: gray;
+    margin-left: 630px !important;
+    margin-top: 75px !important;
+  }
+}
+@media (max-width: 1140px) {
+  .header-container-client-head {
+    display: flex;
+    justify-content: space-between !important;
+  }
+}
+@media (max-width: 1060px) {
+  .header-container-client-head {
+    display: flex;
+    justify-content: space-between !important;
+  }
+}
+@media (max-width: 1000px) {
+  .header-container-client-head {
+    display: flex;
+    justify-content: space-between !important;
+  }
+}
+@media (max-width: 700px) {
+  .header-container-client-head {
+    display: flex;
+    justify-content: space-around !important;
+    margin-top: 130px;
+  }
+}
+@media (max-width: 560px) {
+  .nav-items-client {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: gray;
+    margin-left: 200px !important;
+    margin-top: 75px !important;
+  }
+}
+@media (max-width: 470px) {
+  .nav-items-client {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: gray;
+    margin-left: 150px !important;
+    margin-top: 75px !important;
+  }
+}
+@media (max-width: 400px) {
+  .nav-items-client {
+    display: none;
+  }
+  .help-class-client {
+    display: none;
+  }
+}

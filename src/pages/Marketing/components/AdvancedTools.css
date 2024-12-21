@@ -1,0 +1,57 @@
+.AdvancedTools-container {
+  text-align: right;
+  padding: 16px;
+}
+.AdvancedTools-title {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+.AdvancedTools-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  gap: 16px;
+}
+.AdvancedTools-card {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.AdvancedTools-icon {
+  font-size: 2rem;
+  color: var(--main-color);
+  margin-bottom: 0.5rem;
+}
+
+.AdvancedTools-card-title {
+  font-size: 16px;
+  color: #343a40;
+  margin-bottom: 8px;
+}
+
+.AdvancedTools-description {
+  color: #888;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.AdvancedTools-new-badge {
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  background: #ff5e5e;
+  color: #fff;
+  padding: 4px 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

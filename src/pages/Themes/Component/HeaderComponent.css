@@ -1,0 +1,19 @@
+.nav-items-themes {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-themes,
+.nav-item-home-themes {
+  margin: 0 5px;
+}
+.nav-icon-themes {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-themes,
+.nav-icon-themes {
+  color: var(--main-color) !important;
+}

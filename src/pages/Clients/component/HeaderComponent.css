@@ -1,0 +1,19 @@
+.nav-items-clients {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-clients,
+.nav-item-home-clients {
+  margin: 0 5px;
+}
+.nav-icon-clients {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-clients,
+.nav-icon-clients {
+  color: var(--main-color) !important;
+}

@@ -1,0 +1,19 @@
+.nav-items-marketplace {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-marketplace,
+.nav-item-home-marketplace {
+  margin: 0 5px;
+}
+.nav-icon-marketplace {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-marketplace,
+.nav-icon-marketplace {
+  color: var(--main-color) !important;
+}

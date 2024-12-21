@@ -1,0 +1,49 @@
+.header-container-profilepages-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100% !important;
+  margin-top: 20px !important;
+}
+
+.header-left-profilepages {
+  display: flex;
+}
+
+.btn-services-profilepages,
+.btn-add-profilepages {
+  margin-right: 15px;
+  border: none !important;
+}
+
+.btn-services-profilepages {
+  color: gray !important;
+  background-color: transparent !important;
+}
+
+.btn-add-profilepages {
+  background-color: var(--main-color) !important;
+  border-radius: 20px !important;
+  color: #fff !important;
+  border-color: #b2cdf4 !important;
+}
+.icon-plus {
+  font-size: 15px !important;
+  color: blue;
+  margin-left: 0 !important;
+}
+
+.icon-toolbox {
+  font-size: 20px !important;
+}
+
+.icon-profilepages {
+  font-size: 10px !important;
+}
+
+.spanIcon-profilepages {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+}

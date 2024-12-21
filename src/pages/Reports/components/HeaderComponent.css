@@ -1,0 +1,20 @@
+.nav-items-reports {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.nav-item-reports,
+.nav-item-home-reports {
+  margin: 0 5px;
+}
+.nav-icon-reports {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-reports,
+.nav-icon-reports {
+  color: var(--main-color) !important;
+}

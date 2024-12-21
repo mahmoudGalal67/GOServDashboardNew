@@ -1,0 +1,20 @@
+.nav-items-feedback {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.nav-item-feedback,
+.nav-item-home-feedback {
+  margin: 0 5px;
+}
+.nav-icon-feedback {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-feedback,
+.nav-icon-feedback {
+  color: var(--main-color) !important;
+}

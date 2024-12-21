@@ -1,0 +1,19 @@
+.nav-items-orders {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-orders,
+.nav-item-home-orders {
+  margin: 0 5px;
+}
+.nav-icon-orders {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-orders,
+.nav-icon-orders {
+  color: var(--main-color) !important;
+}

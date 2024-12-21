@@ -1,0 +1,20 @@
+.nav-items-marketing {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.nav-item-marketing,
+.nav-item-home-marketing {
+  margin: 0 5px;
+}
+.nav-icon-marketing {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-marketing,
+.nav-icon-marketing {
+  color: var(--main-color) !important;
+}

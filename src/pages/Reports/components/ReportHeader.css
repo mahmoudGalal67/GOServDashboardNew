@@ -1,0 +1,82 @@
+.report-component-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:98%;
+  margin-top:25px;
+
+}
+
+.report-print-button button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-family: 'Cairo', sans-serif; 
+  font-size: 14px;
+  cursor:pointer;
+}
+
+.report-print-button button:hover {
+  border: 1px solid #999;
+}
+
+.report-print-button button i {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.report-date-picker-container {
+  display: flex;
+  align-items: center;
+}
+
+.report-date-picker-container label {
+  margin-right: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+}
+
+.report-custom-date-input {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Cairo', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.report-custom-date-input i {
+  margin-left: 5px;
+}
+
+.report-calender {
+  margin-left: 10px;
+  color:#333;
+}
+
+.report-dropdown-list {
+  list-style: none;
+  background: white;
+  border: 1px solid #ddd;
+  position: absolute;
+  margin-top: 400px;
+  padding: 0;
+  z-index: 1000;
+  width: 200px;
+}
+
+.report-dropdown-list li {
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.report-dropdown-list li:hover {
+  background-color: #f0f0f0;
+  color:blue;
+}

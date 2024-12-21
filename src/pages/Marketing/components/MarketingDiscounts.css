@@ -1,0 +1,45 @@
+.discounts-container {
+  text-align: right;
+  padding: 16px;
+}
+
+.discounts-title {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+
+.discounts-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.discount-card {
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-marketingDiscount {
+  font-size: 32px;
+  color: var(--main-color);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.marketingDiscount-card-title {
+  font-size: 16px;
+  color: #343a40;
+  margin-bottom: 8px;
+}
+
+.marketingDiscount-card-description {
+  font-size: 10px;
+  color: #6c757d;
+  text-align: center;
+}

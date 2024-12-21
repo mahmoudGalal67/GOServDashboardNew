@@ -1,0 +1,19 @@
+.nav-items-wallet {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-wallet,
+.nav-item-home-wallet {
+  margin: 0 5px;
+}
+.nav-icon-wallet {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-wallet,
+.nav-icon-wallet {
+  color: var(--main-color) !important;
+}

@@ -1,0 +1,172 @@
+.RowHeadClass {
+    width: 100%; 
+}
+
+.RowFlex {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+}
+
+.RowFlex .col-1 {
+    width: 6%; 
+}
+
+.RowFlex .col-2 {
+    width: 12%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.RowFlex .col-3 {
+    width: 45%; 
+}
+
+.RowFlex .col-4 {
+    width: 33%; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+.tab-container {
+    display: flex;
+    justify-content: space-between; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.tab-item {
+    flex: 1; 
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tab-item.active {
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+}
+
+.save-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.save-button {
+    width: 100%;
+    background-color: #b2cdf4;
+    color: #000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #a0bbe4;
+}
+
+.check-icon-btn {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    background-color:transparent;
+  }
+.icon-upload{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 38px;
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: gray;
+    margin-top: 50px;
+    margin-right:7px;
+}
+.CardImage{
+    width:150px;
+    height: 150px; 
+}
+.spanPlusClass{
+    position:absolute;
+    top:10px;
+    right:3px;
+    background-color: white;
+    border-radius: 40px;
+    padding: 3px 10px;
+    border:1px solid #718ac0;
+    cursor:pointer;
+}
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-section {
+    display: flex;
+    align-items: center;
+}
+
+.currency {
+    margin-right: 8px;
+}
+
+.price-input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.currency-select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-name {
+    margin-top: 10px;
+}
+
+.product-name-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-options {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.product-category {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.product-quantity span {
+    margin-left: 5px;
+}
+
+
+
+  

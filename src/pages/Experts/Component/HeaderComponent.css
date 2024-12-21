@@ -1,0 +1,19 @@
+.nav-items-experts {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-experts,
+.nav-item-home-experts {
+  margin: 0 5px;
+}
+.nav-icon-experts {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-experts,
+.nav-icon-experts {
+  color: var(--main-color) !important;
+}

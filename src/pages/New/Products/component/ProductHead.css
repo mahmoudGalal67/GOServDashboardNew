@@ -1,0 +1,249 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.btn-services,
+.btn-filter,
+.btn-grid,
+.btn-list,
+.btn-add-product {
+  margin-right: 15px;
+  border: none !important;
+}
+.btn-services,
+.btn-filter {
+  font-size: 25px;
+}
+
+.btn-services,
+.btn-filter,
+.btn-grid,
+.btn-list {
+  color: gray !important;
+  background-color: transparent !important;
+}
+
+.icon-services,
+.icon-filter {
+  font-size: 20px;
+}
+.btn-add-product {
+  background-color: #77c1e3;
+  padding: 10px 30px !important;
+  border-radius: 50px !important;
+  color: blue !important;
+  display: flex;
+  align-items: center;
+}
+
+.icon-plus {
+  font-size: 15px !important;
+  color: blue;
+}
+
+.icon {
+  font-size: 10px !important;
+}
+
+.btn-add-product:hover {
+  background-color: #ffe0b5 !important;
+  border: none !important;
+}
+
+.spanIcon {
+  border-radius: 50%;
+  margin-left: 10px;
+  padding: 2px 5px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.dropdown-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end !important;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.dropdown-item.new-item {
+  position: relative;
+}
+
+.new-item .badge {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: auto;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1 !important;
+}
+
+.text-container {
+  text-align: right;
+}
+
+.dropdown-item h5 {
+  margin: 0 10px;
+  font-size: 18px;
+  text-align: right;
+}
+
+.dropdown-item p {
+  margin: 0;
+  color: #6c757d;
+  text-align: right;
+}
+
+.icon-container-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: gray;
+  margin-left: 10px;
+}
+
+.left-aligned {
+  position: absolute !important;
+  right: 310px !important;
+  top: 170px !important;
+  padding: 5px !important;
+}
+
+.close-button-class {
+  width: 25px;
+  height: 25px;
+  border: 1px solid red !important;
+  position: relative;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.close-button-filter {
+  text-decoration: none !important;
+  color: red !important;
+  position: absolute;
+  top: -8px;
+  left: -15px;
+}
+
+.full-screen-modal {
+  position: absolute !important;
+  left: -10px !important;
+  top: -40px !important;
+  padding: 5px !important;
+}
+
+.full-screen-modal .modal-dialog {
+  max-width: 70vw !important;
+  max-height: 100vh !important;
+  width: 70% !important;
+  height: 100% !important;
+}
+
+.full-screen-modal .modal-content {
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+
+.left-aligned-service {
+  position: absolute !important;
+  left: 100px !important;
+  top: 150px !important;
+  padding: 5px !important;
+}
+
+.dropdown-item-service {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end !important;
+  cursor: pointer;
+}
+
+.dropdown-item-service:hover {
+  background-color: #f1f1f1 !important;
+}
+
+.text-container-service {
+  text-align: right;
+}
+
+.dropdown-item-service p {
+  margin: 0;
+  color: #6c757d;
+  text-align: right;
+}
+
+.dropdown-item-service {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  width: 180px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.dropdown-content p {
+  padding: 2px;
+  cursor: pointer;
+}
+
+.dropdown-content p:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-export-content {
+  width: 180px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.dropdown-export-content p {
+  padding: 2px;
+  cursor: pointer;
+}
+
+.dropdown-export-content p:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 1200px) {
+  .header-container {
+    display: none;
+  }
+}

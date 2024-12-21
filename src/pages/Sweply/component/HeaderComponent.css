@@ -1,0 +1,19 @@
+.nav-items-sweply {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+}
+
+.nav-item-sweply,
+.nav-item-home-sweply {
+  margin: 0 5px;
+}
+.nav-icon-sweply {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-sweply,
+.nav-icon-sweply {
+  color: var(--main-color) !important;
+}

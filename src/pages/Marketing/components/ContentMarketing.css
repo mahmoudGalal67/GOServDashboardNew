@@ -1,0 +1,44 @@
+.contentmarketing-container {
+  text-align: right;
+  padding: 16px;
+}
+
+.contentmarketing-title {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+
+.contentmarketing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.contentmarketing-card {
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+.icon-contentmarketing {
+  font-size: 32px;
+  color: var(--main-color);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contentmarketing-card-title {
+  font-size: 16px;
+  color: #343a40;
+  margin-bottom: 8px;
+}
+
+.contentmarketing-card-description {
+  font-size: 10px;
+  color: #6c757d;
+  text-align: center;
+}

@@ -1,0 +1,195 @@
+.card-grid-influencers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+.card-influencers {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 100%;
+}
+.card-header-influencers {
+  display: flex;
+  align-items: center;
+  height: 120px;
+}
+
+.avatar-influencers {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.info-influencers {
+  padding: 8px;
+}
+.info-influencers h4 {
+  margin-bottom: 3px;
+  font-size: 18px;
+}
+.stats-influencers {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.stats-influencers span {
+  margin: 2px;
+}
+
+.category-influencers {
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 8px;
+  color: #333;
+  border: 1px solid #aaa;
+  padding: 2px;
+  margin-left: 2px;
+}
+.category-influencers:hover {
+  background-color: #007bff61;
+  color: white;
+  cursor: pointer;
+}
+
+@media (min-width: 1850px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(550px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (min-width: 1800px) and (max-width:1850px){
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(480px, 1fr)) !important;
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (min-width: 1700px) and (max-width: 1800px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(430px, 1fr)) !important;
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (min-width: 1500px) and (max-width: 1700px){
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(380px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 1320px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1260px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(310px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1235px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(299px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1200px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1115px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(390px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1065px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(370px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 1025px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(350px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 730px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(600px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 630px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(550px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 575px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(500px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 525px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(479px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 495px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(400px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}
+@media (max-width: 400px) {
+  .card-grid-influencers {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(300px, 1fr));
+    gap: 10px;
+    padding: 20px;
+  }
+}

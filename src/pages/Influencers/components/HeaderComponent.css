@@ -1,0 +1,20 @@
+.nav-items-influncers {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.nav-item-influncers,
+.nav-item-home-influncers {
+  margin: 0 5px;
+}
+.nav-icon-influncers {
+  margin-left: 5px;
+  font-size: 20px;
+}
+.nav-item-home-influncers,
+.nav-icon-influncers {
+  color: var(--main-color) !important;
+}

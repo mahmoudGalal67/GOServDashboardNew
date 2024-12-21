@@ -1,0 +1,129 @@
+.feature-section {
+  padding: 50px;
+  /* background-color: #fff; */
+  text-align: center;
+  direction: rtl;
+}
+
+.feature-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.phone-section {
+  flex: 1;
+  text-align: center;
+  margin-right: 20px;
+  background-color: #f9f9f9;
+}
+
+.phone-image {
+  width: 300px;
+  height: 500px;
+  margin:auto auto;
+  margin-bottom: 20px;
+}
+
+.phone-text {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align:center;
+}
+
+.app-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.app-button {
+  width: 140px;
+  height: auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  flex: 2;
+}
+
+.feature-card {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height:300px;
+}
+
+.feature-icon-div{
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 80, 40, .1);
+  border-radius: 50%;
+  margin: 10px 0;
+  padding: 20px;
+  margin:auto auto ;
+  margin-bottom: 15px;
+}
+
+.feature-icon {
+  color: #ff5028;
+  font-size: 35px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 12px;
+  color: #666;
+  text-align:center;
+}
+@media(max-width:1200px){
+  .app-button {
+    width: 110px !important;
+    height: auto;
+  }
+}
+@media(max-width:1050px){
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    flex: 1;
+  }
+  .phone-section {
+    flex: 1;
+    text-align: center;
+    margin-right: 20px;
+    margin-top:-100px;
+    background-color: #f9f9f9;
+    height:900px;
+  }
+  .phone-image {
+    width: 300px;
+    height:800px;
+    margin:auto auto;
+    margin-bottom: 20px;
+  }
+}
+@media(max-width:1025px){
+  .feature-container {
+    display:block;
+  }
+  .phone-section {
+    flex: 1;
+    text-align: center;
+    margin-top:20px;
+    background-color: #f9f9f9;
+  }
+}
