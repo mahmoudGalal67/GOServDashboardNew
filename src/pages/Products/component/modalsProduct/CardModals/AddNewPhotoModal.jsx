@@ -6,8 +6,6 @@ import "react-quill/dist/quill.snow.css";
 import { ProductContext } from "../../../../../components/context/Product";
 
 const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
-  const { dispatch, products } = useContext(ProductContext);
-
   const [showModal, setShowModal] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]);
 
@@ -17,7 +15,7 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
   const handleFileInputChange = (e) => {
     const files = Array.from(e.target.files);
 
-    setUpdatedProduct((prev) => ({ ...prev, photos: files, updated: true }));
+    setUpdatedProduct((prev) => ({ ...prev, photoes: files, updated: true }));
 
     // dispatch({ type: "updateMainImages", payload: { id: product.id, files } });
 
@@ -95,7 +93,7 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
             ></i>
           </div>
           <div className="uploaded-images-container d-flex">
-            {product.photos?.map((image, index) => (
+            {product.photoes?.map((image, index) => (
               <div key={index} className="uploaded-image">
                 <img
                   src={

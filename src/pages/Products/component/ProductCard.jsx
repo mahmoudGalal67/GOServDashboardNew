@@ -135,50 +135,50 @@ const ProductCard = ({ product, categories, setcategories }) => {
       !productData.category
     ) {
       toast.warn("please add all fields");
-
-      return;
+      // return;
     }
-    if (!unlimited && productData.product_colors) {
-      for (const item of productData.product_colors) {
-        if (
-          item.color == "" ||
-          item.hex_code == "" ||
-          item.photos.length == 0 ||
-          item.product_color_sizes.size == [] ||
-          item.product_color_sizes.price == [] ||
-          item.product_color_sizes.quantity == []
-        ) {
-          toast.warn("please add all fields");
+    // if (!unlimited && productData.product_colors) {
+    //   for (const item of productData.product_colors) {
+    //     if (
+    //       item.color == "" ||
+    //       item.hex_code == "" ||
+    //       item.photos.length == 0 ||
+    //       item.product_color_sizes.size == [] ||
+    //       item.product_color_sizes.price == [] ||
+    //       item.product_color_sizes.quantity == []
+    //     ) {
+    //       toast.warn("please add all fields");
 
-          return;
-        }
-      }
-    }
+    //       return;
+    //     }
+    //   }
+    // }
 
     try {
       setloading(true);
-      const { data } = await request({
-        url:
-          updatedProduct.id != 0
-            ? `api/dashboard/update-product/${updatedProduct.id}`
-            : `/public/api/dashboard/products`,
-        method: "POST",
-        data: {
-          ...updatedProduct,
-          brand: "salah",
-          weight: "10.00",
-        },
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // const { data } = await request({
+      //   url:
+      //     updatedProduct.id != 0
+      //       ? `api/dashboard/update-product/${updatedProduct.id}`
+      //       : `/public/api/dashboard/products`,
+      //   method: "POST",
+      //   data: {
+      //     ...updatedProduct,
+      //     brand: "salah",
+      //     weight: "10.00",
+      //   },
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
+      console.log(updatedProduct);
       setloading(false);
-      toast.success("you have been added product successfuly");
+      // toast.success("you have been added product successfuly");
 
-      dispatch({
-        type: "addNewProduct",
-        payload: { newproduct: data },
-      });
+      // dispatch({
+      //   type: "addNewProduct",
+      //   payload: { newproduct: data },
+      // });
     } catch (error) {
       console.log(error);
       setloading(false);
@@ -187,10 +187,18 @@ const ProductCard = ({ product, categories, setcategories }) => {
   };
 
   const changeProductState = (name, value, lang) => {
-    setUpdatedProduct((prev) => ({
-      ...prev,
-      [name]: lang ? { en: value, ar: value } : value,
-    }));
+    if (lang) {
+      setUpdatedProduct((prev) => ({
+        ...prev,
+        [name + "_en"]: value,
+        [name + "_ar"]: value,
+      }));
+    } else {
+      setUpdatedProduct((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   return (
@@ -203,8 +211,8 @@ const ProductCard = ({ product, categories, setcategories }) => {
                 !updatedProduct.updated && updatedProduct.form
                   ? updatedProduct.firstPhoto
                   : !updatedProduct.updated && !updatedProduct.form
-                  ? `https://goservback.alyoumsa.com/public/storage/${updatedProduct.photos[0]}`
-                  : URL.createObjectURL(updatedProduct.photos[0])
+                  ? `https://goservback.alyoumsa.com/public/storage/${updatedProduct.photoes[0]}`
+                  : URL.createObjectURL(updatedProduct.photoes[0])
               }
               alt=""
             />
@@ -248,8 +256,12 @@ const ProductCard = ({ product, categories, setcategories }) => {
                     placeholder={
                       updatedProduct.type ? updatedProduct.type.en : ""
                     }
-                    name="name"
-                    value={updatedProduct.name ? updatedProduct.name.en : ""}
+                    name="product_name"
+                    value={
+                      updatedProduct.product_name_en
+                        ? updatedProduct.product_name_en
+                        : ""
+                    }
                     onChange={(e) =>
                       changeProductState(e.target.name, e.target.value, true)
                     }
@@ -282,7 +294,7 @@ const ProductCard = ({ product, categories, setcategories }) => {
                   name="price"
                   value={updatedProduct.price}
                   onChange={(e) =>
-                    changeProductState("price", e.target.value, false)
+                    changeProductState(e.target.name, e.target.value, false)
                   }
                 />
               </div>
