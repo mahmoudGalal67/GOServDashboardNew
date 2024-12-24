@@ -3,7 +3,7 @@ import "../../../ProductHead.css";
 import { Modal, Button } from "react-bootstrap";
 import Readymadetemplates from "./Readymadetemplates";
 import { ProductContext } from "../../../../../../components/context/Product";
-const AddNewProductModal = () => {
+const AddNewProductModal = ({ setbrand }) => {
   const { dispatch } = useContext(ProductContext);
 
   const [showAddProductModal, setshowAddProductModal] = useState(false);
@@ -12,11 +12,11 @@ const AddNewProductModal = () => {
   const handleCloseModal = () => setshowAddProductModal(false);
 
   const handleAddProduct = (placeholder) => {
+    setbrand(placeholder);
     const newProductData = {
       id: 0,
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
-      type: { en: placeholder },
       form: true,
       product_name_en: "string",
       product_name_ar: "string",

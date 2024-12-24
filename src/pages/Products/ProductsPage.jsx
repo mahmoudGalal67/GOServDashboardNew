@@ -15,6 +15,7 @@ import DotLoader from "react-spinners/DotLoader";
 
 const ProductsPage = (props) => {
   const { dispatch, products } = useContext(ProductContext);
+  const [brand, setbrand] = useState(null);
 
   const [loading, setloading] = useState(false);
 
@@ -65,7 +66,7 @@ const ProductsPage = (props) => {
       >
         <div className="headerComponent" style={{ width: "98%" }}>
           <HeaderComponent />
-          <ProductHead />
+          <ProductHead brand={brand} setbrand={setbrand} />
           {loading ? (
             <DotLoader
               color="#2ffff3"
@@ -74,7 +75,7 @@ const ProductsPage = (props) => {
               loading={loading}
             />
           ) : (
-            <ProductList />
+            <ProductList brand={brand} />
           )}
         </div>
       </main>

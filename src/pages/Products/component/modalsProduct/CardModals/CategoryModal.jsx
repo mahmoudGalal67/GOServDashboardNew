@@ -5,7 +5,7 @@ import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { request } from "../../../../../components/utils/Request";
 
-const CategoryModal = ({ isColumn, setcategories }) => {
+const CategoryModal = ({ isColumn, setcategories, brand }) => {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [isMainCategory, setIsMainCategory] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -40,21 +40,16 @@ const CategoryModal = ({ isColumn, setcategories }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      name: {
-        ar: categoryNameAR,
-        en: categoryNameEN,
-      },
-      description: {
-        ar: categoryNameAR,
-        en: categoryNameEN,
-      },
-      photo: file,
+      Brand_name: categoryNameEN,
+      Details: "Nike is a leading brand in sportswear and equip",
+      Category_photo: file,
+      Add_to_main_brand: true,
     };
 
     try {
       setloading(true);
       const response = await request({
-        url: "api/dashboard/categories",
+        url: `/addbrands?cat_id=${brand.id}`,
         method: "POST",
         data,
         headers: {

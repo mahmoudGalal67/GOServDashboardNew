@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://goservback.alyoumsa.com",
+  baseURL: "http://salla1-001-site1.anytempurl.com",
 });
 
 export const request = ({ ...options }) => {

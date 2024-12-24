@@ -14,13 +14,15 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
   const handleOptionsModalShow = () => setShowOptionsModal(true);
 
   const optionListData = {
-    color: "",
+    color_name: "",
     hex_code: "",
-    photos: [],
+    photoes: [],
+    price: 0,
     product_color_sizes: {
       size: [],
       price: [],
       quantity: [],
+      cost: [],
     },
   };
 
@@ -40,7 +42,7 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
   const handleuploadeImages = (e, i) => {
     let newoptions = optionList.map((item, index) => {
       if (i == index) {
-        return { ...item, photos: Array.from(e.target.files) };
+        return { ...item, photoes: Array.from(e.target.files) };
       } else {
         return item;
       }
@@ -188,7 +190,9 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
                           placeholder="اللون"
                           style={{ marginRight: "0px", border: "none" }}
                           value={option.color}
-                          onChange={(e) => handleOptionChange(e, i, "color")}
+                          onChange={(e) =>
+                            handleOptionChange(e, i, "color_name")
+                          }
                           required
                         />
                         <select
@@ -397,7 +401,7 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
                           </label>
                         </div>
                         <div className="uploaded-images-container d-flex">
-                          {option.photos?.map((image, index) => (
+                          {option.photoes?.map((image, index) => (
                             <div key={index} className="uploaded-image">
                               <img
                                 src={

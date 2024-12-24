@@ -88,8 +88,9 @@ const shallowEqual = (obj1, obj2) => {
   return obj1 === obj2;
 };
 
-const ProductCard = ({ product, categories, setcategories }) => {
+const ProductCard = ({ product, categories, setcategories, brand }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
+  const [ProductCategory, setProductCategory] = useState(null);
 
   const override = {
     position: "absolute",
@@ -253,18 +254,10 @@ const ProductCard = ({ product, categories, setcategories }) => {
                   <input
                     type="text"
                     required
-                    placeholder={
-                      updatedProduct.type ? updatedProduct.type.en : ""
-                    }
+                    placeholder={brand ? brand : ""}
                     name="product_name"
-                    value={
-                      updatedProduct.product_name_en
-                        ? updatedProduct.product_name_en
-                        : ""
-                    }
-                    onChange={(e) =>
-                      changeProductState(e.target.name, e.target.value, true)
-                    }
+                    value={ProductCategory.id ? ProductCategory.id : ""}
+                    onChange={(e) => setProductCategory(e.target.value)}
                   />
                 </div>
               </div>
@@ -359,10 +352,11 @@ const ProductCard = ({ product, categories, setcategories }) => {
                   </option>
                   {categories.map((category) => (
                     <option
-                      value={category.name.en}
-                      selected={category.name.en == product.category}
+                      key={category.brand_id}
+                      value={category.brand_id}
+                      // selected={category.brand_name == product.category}
                     >
-                      {category.name.en}
+                      {category.brand_name}
                     </option>
                   ))}
                 </select>
@@ -372,6 +366,7 @@ const ProductCard = ({ product, categories, setcategories }) => {
                 categories={categories}
                 setUpdatedProduct={setUpdatedProduct}
                 setcategories={setcategories}
+                brand={brand}
               />
             </div>
             <div className="field">

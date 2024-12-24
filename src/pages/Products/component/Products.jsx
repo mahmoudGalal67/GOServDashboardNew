@@ -4,7 +4,7 @@ import "./Products.css";
 import { ProductContext } from "../../../components/context/Product";
 import { request } from "../../../components/utils/Request";
 
-const ProductList = () => {
+const ProductList = ({ brand }) => {
   const { products } = useContext(ProductContext);
   const [categories, setcategories] = useState([]);
 
@@ -12,7 +12,7 @@ const ProductList = () => {
     const getcategories = async () => {
       try {
         const { data } = await request({
-          url: `/api/dashboard/categories`,
+          url: `/Getallbrands?catid=${brand.id}`,
         });
         setcategories(data);
       } catch (error) {
@@ -30,6 +30,7 @@ const ProductList = () => {
             product={product}
             categories={categories}
             setcategories={setcategories}
+            brand={brand}
           />
         ))}
       </div>

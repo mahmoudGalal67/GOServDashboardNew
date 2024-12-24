@@ -4,11 +4,11 @@ import AddNewProductModal from "./modalsProduct/productHeadModals/addnewproduct/
 import FilterModal from "./modalsProduct/productHeadModals/filter/FilterModal";
 import ServiceModal from "./modalsProduct/productHeadModals/service/ServiceModal";
 
-const ProductHead = () => {
+const ProductHead = ({ setbrand }) => {
   return (
     <div className="header-container">
       <div className="header-right" style={{ marginRight: "-20px" }}>
-        <AddNewProductModal />
+        <AddNewProductModal setbrand={setbrand} />
       </div>
       <div className="header-left">
         <FilterModal />

@@ -26,9 +26,22 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
   };
 
   const handleInputChange = (value, name, lang) => {
+    if (name == "details") {
+      setUpdatedProduct((prev) => ({
+        ...prev,
+        productDetailDto: [
+          {
+            ...prev.productDetailDto[0],
+            [name + "_en"]: value,
+            [name + "_ar"]: value,
+          },
+        ],
+      }));
+    }
     setUpdatedProduct((prev) => ({
       ...prev,
-      [name]: lang ? { en: value, ar: value } : value,
+      [name + "_en"]: value,
+      [name + "_ar"]: value,
     }));
   };
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -532,7 +545,7 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                 <ReactQuill
                   modules={modules}
                   value={product?.productDetailDto[0].details_en}
-                  // onChange={(e) => handleInputChange(e, "details", true)}
+                  onChange={(e) => handleInputChange(e, "details", true)}
                   placeholder="تفاصيل المنتج"
                   style={{
                     width: "calc(98% - 50px)",
