@@ -2,25 +2,33 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import "./Products.css";
 import { ProductContext } from "../../../components/context/Product";
-import { request } from "../../../components/utils/Request";
+import { Request } from "../../../components/utils/Request";
+import { useCookies } from "react-cookie";
 
 const ProductList = ({ brand }) => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
   const { products } = useContext(ProductContext);
   const [categories, setcategories] = useState([]);
 
   useEffect(() => {
-    const getcategories = async () => {
-      try {
-        const { data } = await request({
-          url: `/Getallbrands?catid=${brand.id}`,
-        });
-        setcategories(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getcategories();
-  }, []);
+    if (brand) {
+      const getcategories = async () => {
+        try {
+          const { data } = await Request({
+            url: `/Getallbrands?catid=${brand.category_id}`,
+            headers: {
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          });
+          setcategories(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getcategories();
+    }
+  }, [brand]);
   return (
     <>
       <div className="product-flex">

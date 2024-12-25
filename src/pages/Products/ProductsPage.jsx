@@ -7,7 +7,7 @@ import "./ProductPage.css";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 // import Helper from "../../components/Helper";
-import { request } from "../../components/utils/Request";
+import { Request } from "../../components/utils/Request";
 import { ProductContext } from "../../components/context/Product";
 
 import { ToastContainer } from "react-toastify";
@@ -23,25 +23,25 @@ const ProductsPage = (props) => {
     position: "absolute",
     inset: "50%",
   };
-  useEffect(() => {
-    const getProduts = async () => {
-      setloading(true);
-      try {
-        const { data } = await request({
-          url: `/api/dashboard/products`,
-        });
-        dispatch({
-          type: "fetchProducts",
-          payload: data.slice(0, 10),
-        });
-        setloading(false);
-      } catch (error) {
-        console.log(error);
-        setloading(false);
-      }
-    };
-    getProduts();
-  }, []);
+  // useEffect(() => {
+  //   const getProduts = async () => {
+  //     setloading(true);
+  //     try {
+  //       const { data } = await Request({
+  //         url: `/api/dashboard/products`,
+  //       });
+  //       dispatch({
+  //         type: "fetchProducts",
+  //         payload: data.slice(0, 10),
+  //       });
+  //       setloading(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //       setloading(false);
+  //     }
+  //   };
+  //   getProduts();
+  // }, []);
 
   return (
     <div

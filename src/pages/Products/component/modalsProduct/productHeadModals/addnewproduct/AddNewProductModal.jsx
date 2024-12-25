@@ -1,16 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../../ProductHead.css";
 import { Modal, Button } from "react-bootstrap";
 import Readymadetemplates from "./Readymadetemplates";
 import { ProductContext } from "../../../../../../components/context/Product";
+import { Request } from "../../../../../../components/utils/Request";
+
+import { useCookies } from "react-cookie";
+
 const AddNewProductModal = ({ setbrand }) => {
   const { dispatch } = useContext(ProductContext);
+
+  const [categories, setcategories] = useState([]);
 
   const [showAddProductModal, setshowAddProductModal] = useState(false);
 
   const handleShowModal = () => setshowAddProductModal(true);
   const handleCloseModal = () => setshowAddProductModal(false);
 
+  const [cookies, setCookie] = useCookies(["token"]);
   const handleAddProduct = (placeholder) => {
     setbrand(placeholder);
     const newProductData = {
@@ -18,11 +25,6 @@ const AddNewProductModal = ({ setbrand }) => {
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
       form: true,
-      product_name_en: "string",
-      product_name_ar: "string",
-      description_en: null,
-      description_ar: null,
-
       productDetailDto: [
         {
           cost_price: 0,
@@ -95,6 +97,22 @@ const AddNewProductModal = ({ setbrand }) => {
     handleCloseModal();
   };
 
+  useEffect(() => {
+    const getcategories = async () => {
+      try {
+        const { data } = await Request({
+          url: `/Getallcategories?userid=1`,
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        });
+        setcategories(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getcategories();
+  }, []);
   return (
     <>
       <Button className="btn-newadd-product" onClick={handleShowModal}>
@@ -116,91 +134,20 @@ const AddNewProductModal = ({ setbrand }) => {
         dialogClassName="left-aligned"
       >
         <Modal.Body>
-          <div className="dropdown-item">
-            <div
-              className="text-container"
-              onClick={() => handleAddProduct("منتج جاهز")}
-            >
-              <h6>منتج جاهز</h6>
-              <p>المنتجات الملموسة والقابلة للشحن</p>
+          {categories.map((item) => (
+            <div className="dropdown-item" key={item.category_id}>
+              <div
+                className="text-container"
+                onClick={() => handleAddProduct(item)}
+              >
+                <h6> {item.category_name_en}</h6>
+                <p> {item.details_en}</p>
+              </div>
+              <div className="icon-container-drop">
+                <i className="sicon-packed-box"></i>
+              </div>
             </div>
-            <div className="icon-container-drop">
-              <i className="sicon-packed-box"></i>
-            </div>
-          </div>
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("خدمة حسب الطلب")}
-          >
-            <div className="text-container">
-              <h6>خدمة حسب الطلب</h6>
-              <p>التصميم، الطباعة، البحوث، الكتابة</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-fabric-swatch"></i>
-            </div>
-          </div>
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("أكل")}
-          >
-            <div className="text-container">
-              <h6>أكل</h6>
-              <p>المأكولات والمشروبات التي تطلبها حسب خاص</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-cake"></i>
-            </div>
-          </div>
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("منتج رقمي")}
-          >
-            <div className="text-container">
-              <h6>منتج رقمي</h6>
-              <p>الكتب الإلكترونية، الدورات، ملفات التحميل</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-game-controller-alt"></i>
-            </div>
-          </div>
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("بطاقة رقمية")}
-          >
-            <div className="text-container">
-              <h6>بطاقة رقمية</h6>
-              <p>بطاقات الإهداء، حسابات للبيع</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-barcode-scan"></i>
-            </div>
-          </div>
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("مجموعة منتجات")}
-          >
-            <div className="text-container">
-              <h6>مجموعة منتجات</h6>
-              <p>أكثر من منتج في منتج واحد</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-inbox-full"></i>
-            </div>
-          </div>
-
-          <div
-            className="dropdown-item"
-            onClick={() => handleAddProduct("حجوزات")}
-          >
-            <div className="text-container">
-              <h6>حجوزات</h6>
-              <p>دورات، استشارات، خدمات طبية وسياحية</p>
-            </div>
-            <div className="icon-container-drop">
-              <i className="sicon-calendar-date"></i>
-            </div>
-          </div>
+          ))}
 
           <Readymadetemplates
             closeAddProductModal={closeAddProductWhenTemplateOpens}

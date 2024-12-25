@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "../../ProductCard.css";
 import "../../ProductsRow.css";
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
-import { request } from "../../../../../components/utils/Request";
+
+import { Request } from "../../../../../components/utils/Request";
 
 const CategoryModal = ({ isColumn, setcategories, brand }) => {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -48,7 +48,7 @@ const CategoryModal = ({ isColumn, setcategories, brand }) => {
 
     try {
       setloading(true);
-      const response = await request({
+      const response = await Request({
         url: `/addbrands?cat_id=${brand.id}`,
         method: "POST",
         data,

@@ -10,9 +10,11 @@ import DetailsModal from "./modalsProduct/CardModals/DetailsModal";
 import ProductNotificationModal from "./modalsProduct/CardModals/ProductNotificationModal";
 import { ProductContext } from "../../../components/context/Product";
 
+import { useCookies } from "react-cookie";
+
 import arflag from "../../../assets/flag.png";
 import enflag from "../../../assets/united-kingdom.png";
-import { request } from "../../../components/utils/Request";
+import { Request } from "../../../components/utils/Request";
 
 import { toast } from "react-toastify";
 import DotLoader from "react-spinners/DotLoader";
@@ -34,63 +36,11 @@ import DotLoader from "react-spinners/DotLoader";
 //   );
 // }
 
-const areEqual = (prevProps, nextProps) => {
-  const { product: prevProduct } = prevProps;
-  const { product: nextProduct } = nextProps;
-
-  // Check if the references are the same for the outer properties
-  return (
-    prevProduct.id === nextProduct.id &&
-    shallowEqual(prevProduct.name, nextProduct.name) &&
-    shallowEqual(prevProduct.description, nextProduct.description) &&
-    shallowEqual(prevProduct.details, nextProduct.details) &&
-    prevProduct.category === nextProduct.category &&
-    prevProduct.brand === nextProduct.brand &&
-    prevProduct.weight === nextProduct.weight &&
-    prevProduct.price === nextProduct.price &&
-    shallowEqual(prevProduct.photos, nextProduct.photos) &&
-    prevProduct.updated_at === nextProduct.updated_at &&
-    prevProduct.created_at === nextProduct.created_at &&
-    shallowEqual(prevProduct.product_colors, nextProduct.product_colors)
-  );
-};
-
-// Utility function for shallow comparison of objects and arrays
-const shallowEqual = (obj1, obj2) => {
-  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-    // Check array lengths and shallowly compare each element
-    if (obj1.length !== obj2.length) return false;
-    for (let i = 0; i < obj1.length; i++) {
-      if (obj1[i] !== obj2[i]) return false;
-    }
-    return true;
-  }
-
-  if (
-    typeof obj1 === "object" &&
-    obj1 !== null &&
-    typeof obj2 === "object" &&
-    obj2 !== null
-  ) {
-    // Compare keys of both objects
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-
-    if (keys1.length !== keys2.length) return false;
-
-    for (let key of keys1) {
-      if (obj1[key] !== obj2[key]) return false;
-    }
-    return true;
-  }
-
-  // If they are not objects/arrays, just compare values directly
-  return obj1 === obj2;
-};
-
 const ProductCard = ({ product, categories, setcategories, brand }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
   const [ProductCategory, setProductCategory] = useState(null);
+
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const override = {
     position: "absolute",
@@ -115,7 +65,7 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
   };
   const deleteProduct = async (id) => {
     if (id != 0) {
-      request({
+      Request({
         url: `api/dashboard/products/${id}`,
         method: "DELETE",
       });
@@ -128,58 +78,59 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
 
   const handleProductSubmit = async () => {
     let productData = JSON.parse(JSON.stringify(updatedProduct));
-
+    console.log(updatedProduct);
+    console.log(ProductCategory);
+    console.log(brand);
     if (
-      !productData.name ||
-      !productData.photos ||
+      !productData.product_name_en ||
+      !productData.photoes ||
       productData.price == "" ||
-      !productData.category
+      !ProductCategory
     ) {
       toast.warn("please add all fields");
-      // return;
+      return;
     }
-    // if (!unlimited && productData.product_colors) {
-    //   for (const item of productData.product_colors) {
-    //     if (
-    //       item.color == "" ||
-    //       item.hex_code == "" ||
-    //       item.photos.length == 0 ||
-    //       item.product_color_sizes.size == [] ||
-    //       item.product_color_sizes.price == [] ||
-    //       item.product_color_sizes.quantity == []
-    //     ) {
-    //       toast.warn("please add all fields");
+    if (!unlimited && productData.product_colors) {
+      for (const item of productData.product_colors) {
+        if (
+          item.color_name == "" ||
+          item.hex_code == "" ||
+          item.photoes.length == 0 ||
+          item.product_color_sizes.size == [] ||
+          item.product_color_sizes.price == [] ||
+          item.product_color_sizes.quantity == []
+        ) {
+          toast.warn("please add all fields");
 
-    //       return;
-    //     }
-    //   }
-    // }
+          return;
+        }
+      }
+    }
 
     try {
       setloading(true);
-      // const { data } = await request({
-      //   url:
-      //     updatedProduct.id != 0
-      //       ? `api/dashboard/update-product/${updatedProduct.id}`
-      //       : `/public/api/dashboard/products`,
-      //   method: "POST",
-      //   data: {
-      //     ...updatedProduct,
-      //     brand: "salah",
-      //     weight: "10.00",
-      //   },
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
-      console.log(updatedProduct);
-      setloading(false);
-      // toast.success("you have been added product successfuly");
+      const { data } = await Request({
+        url:
+          updatedProduct.id != 0
+            ? `/public/api/dashboard/products`
+            : `/api/Product_details/add?cat_id=${ProductCategory}&bid=${brand.category_id}&userid=1&trade_mark_id=1`,
+        method: "POST",
+        data: {
+          ...updatedProduct,
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      });
 
-      // dispatch({
-      //   type: "addNewProduct",
-      //   payload: { newproduct: data },
-      // });
+      setloading(false);
+      toast.success("you have been added product successfuly");
+
+      dispatch({
+        type: "addNewProduct",
+        payload: { newproduct: data },
+      });
     } catch (error) {
       console.log(error);
       setloading(false);
@@ -254,10 +205,11 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
                   <input
                     type="text"
                     required
-                    placeholder={brand ? brand : ""}
+                    placeholder={brand ? brand.category_name_en : ""}
                     name="product_name"
-                    value={ProductCategory.id ? ProductCategory.id : ""}
-                    onChange={(e) => setProductCategory(e.target.value)}
+                    onChange={(e) =>
+                      changeProductState(e.target.name, e.target.value, true)
+                    }
                   />
                 </div>
               </div>
@@ -343,13 +295,8 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
               <div className="selectClassificationClass">
                 <select
                   name="category"
-                  onChange={(e) =>
-                    changeProductState(e.target.name, e.target.value)
-                  }
+                  onChange={(e) => setProductCategory(e.target.value)}
                 >
-                  <option disabled selected={product.id == 0}>
-                    اختر تصنيف المنتج
-                  </option>
                   {categories.map((category) => (
                     <option
                       key={category.brand_id}
