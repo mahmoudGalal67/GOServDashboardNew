@@ -1,17 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../../ProductCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import "react-quill/dist/quill.snow.css";
 import "../../ProductsRow.css";
-import { ProductContext } from "../../../../../components/context/Product";
+import { useCookies } from "react-cookie";
+
+import { Request } from "../../../../../components/utils/Request";
 
 const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
   const [showOptionsModal, setShowOptionsModal] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
+  const [cookies, setCookie] = useCookies(["token"]);
+
   const handleOptionsModalClose = () => setShowOptionsModal(false);
   const handleOptionsModalShow = () => setShowOptionsModal(true);
+
+  const [loading, setloading] = useState(false);
 
   const optionListData = {
     color_name: "",
@@ -21,8 +27,8 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
     product_color_sizes: {
       size: [],
       price: [],
+      cost: ["1"],
       quantity: [],
-      cost: [],
     },
   };
 
@@ -39,16 +45,38 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
 
   const [optiontype, setOPtiontype] = useState("color");
 
-  const handleuploadeImages = (e, i) => {
-    let newoptions = optionList.map((item, index) => {
-      if (i == index) {
-        return { ...item, photoes: Array.from(e.target.files) };
-      } else {
-        return item;
-      }
+  const handleuploadeImages = async (e, i) => {
+    const files = Array.from(e.target.files);
+    const formData = new FormData();
+    files.map((file, i) => {
+      formData.append("photos", file);
     });
-    setOptionList(newoptions);
-    setUpdatedProduct((prev) => ({ ...prev, product_colors: newoptions }));
+
+    try {
+      setloading(true);
+      const { data } = await Request({
+        url: `/api/Product_details/upload_multitype_photo`,
+        method: "POST",
+        data: formData,
+        headers: {
+          Authorization: `Bearer  ${cookies.token}`,
+        },
+      });
+
+      let newoptions = optionList.map((item, index) => {
+        if (i == index) {
+          return { ...item, photoes: data.fileUrls };
+        } else {
+          return item;
+        }
+      });
+      setOptionList(newoptions);
+      setUpdatedProduct((prev) => ({ ...prev, product_colors: newoptions }));
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+      setloading(false);
+    }
   };
 
   const handleOptionChange = (e, index, name) => {
@@ -380,35 +408,35 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
 
                     {optiontype == "images" && (
                       <div className="option-container-body d-flex flex-col">
-                        <div className="image-upload-area w-full">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            style={{ display: "none" }}
-                            id={`file-input ${i}`}
-                            required
-                            onChange={(e) => handleuploadeImages(e, i)}
-                          />
-                          <label
-                            htmlFor={`file-input ${i}`}
-                            style={{ cursor: "pointer" }}
-                          >
-                            <div className="upload-button">
-                              <p>اسحب الصورة وأفلتها هنا</p>
-                              <p> او تصفح من جهازك</p>
-                            </div>
-                          </label>
-                        </div>
+                        {loading ? (
+                          <div style={{ textAlign: "center" }}>Loaidng ...</div>
+                        ) : (
+                          <div className="image-upload-area w-full">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              multiple
+                              style={{ display: "none" }}
+                              id={`file-input ${i}`}
+                              required
+                              onChange={(e) => handleuploadeImages(e, i)}
+                            />
+                            <label
+                              htmlFor={`file-input ${i}`}
+                              style={{ cursor: "pointer" }}
+                            >
+                              <div className="upload-button">
+                                <p>اسحب الصورة وأفلتها هنا</p>
+                                <p> او تصفح من جهازك</p>
+                              </div>
+                            </label>
+                          </div>
+                        )}
                         <div className="uploaded-images-container d-flex">
                           {option.photoes?.map((image, index) => (
                             <div key={index} className="uploaded-image">
                               <img
-                                src={
-                                  typeof image === "object" && image
-                                    ? URL.createObjectURL(image)
-                                    : `https://goservback.alyoumsa.com/public/storage/${image}`
-                                }
+                                src={`https://salla1-001-site1.anytempurl.com/${image}`}
                                 alt={`Uploaded ${index + 1}`}
                               />
                             </div>

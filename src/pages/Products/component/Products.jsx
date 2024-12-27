@@ -18,7 +18,7 @@ const ProductList = ({ brand }) => {
           const { data } = await Request({
             url: `/Getallbrands?catid=${brand.category_id}`,
             headers: {
-              Authorization: `Bearer ${cookies.token}`,
+              Authorization: `Bearer  ${cookies.token}`,
             },
           });
           setcategories(data);

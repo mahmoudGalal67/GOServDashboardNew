@@ -78,9 +78,7 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
 
   const handleProductSubmit = async () => {
     let productData = JSON.parse(JSON.stringify(updatedProduct));
-    console.log(updatedProduct);
-    console.log(ProductCategory);
-    console.log(brand);
+
     if (
       !productData.product_name_en ||
       !productData.photoes ||
@@ -113,13 +111,12 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
         url:
           updatedProduct.id != 0
             ? `/public/api/dashboard/products`
-            : `/api/Product_details/add?cat_id=${ProductCategory}&bid=${brand.category_id}&userid=1&trade_mark_id=1`,
+            : `/api/Product_details/add?cat_id=${brand.category_id}&bid=${ProductCategory}&userid=1&trade_mark_id=1`,
         method: "POST",
         data: {
           ...updatedProduct,
         },
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${cookies.token}`,
         },
       });
@@ -162,9 +159,7 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
               src={
                 !updatedProduct.updated && updatedProduct.form
                   ? updatedProduct.firstPhoto
-                  : !updatedProduct.updated && !updatedProduct.form
-                  ? `https://goservback.alyoumsa.com/public/storage/${updatedProduct.photoes[0]}`
-                  : URL.createObjectURL(updatedProduct.photoes[0])
+                  : `https://salla1-001-site1.anytempurl.com/${updatedProduct.photoes[0]}`
               }
               alt=""
             />

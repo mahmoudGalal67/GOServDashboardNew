@@ -3,23 +3,49 @@ import "../../ProductCard.css";
 import "../../ProductsRow.css";
 import { Modal, Button } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
-import { ProductContext } from "../../../../../components/context/Product";
+import { useCookies } from "react-cookie";
+
+import { Request } from "../../../../../components/utils/Request";
 
 const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
   const [showModal, setShowModal] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState([]);
+  const [cookies, setCookie] = useCookies(["token"]);
+
+  const [loading, setloading] = useState(false);
 
   const handleModalClose = () => setShowModal(false);
   const handleModalShow = () => setShowModal(true);
 
-  const handleFileInputChange = (e) => {
+  const handleFileInputChange = async (e) => {
     const files = Array.from(e.target.files);
-
-    setUpdatedProduct((prev) => ({ ...prev, photoes: files, updated: true }));
-
+    const formData = new FormData();
+    files.map((file, i) => {
+      formData.append("photos", file);
+    });
     // dispatch({ type: "updateMainImages", payload: { id: product.id, files } });
 
-    setUploadedImages(files);
+    try {
+      setloading(true);
+      const { data } = await Request({
+        url: `/api/Product_details/upload_multitype_photo`,
+        method: "POST",
+        data: formData,
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          Authorization: `Bearer  ${cookies.token}`,
+        },
+      });
+      setUpdatedProduct((prev) => ({
+        ...prev,
+        photoes: data.fileUrls,
+        updated: true,
+      }));
+      console.log(data);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+      setloading(false);
+    }
   };
 
   return (
@@ -63,21 +89,25 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
               , gif ) ولا يتجاوز 5 ميجابيت لكل صوره بحد اقصي 10 صور
             </p>
           </div>
-          <div className="image-upload-area">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileInputChange}
-              multiple
-              style={{ display: "none" }}
-              id="file-input"
-            />
-            <label htmlFor="file-input" style={{ cursor: "pointer" }}>
-              <div className="upload-button">
-                <p> تصفح من جهازك</p>
-              </div>
-            </label>
-          </div>
+          {loading ? (
+            <div style={{ textAlign: "center" }}>Loaidng ...</div>
+          ) : (
+            <div className="image-upload-area">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileInputChange}
+                multiple
+                style={{ display: "none" }}
+                id="file-input"
+              />
+              <label htmlFor="file-input" style={{ cursor: "pointer" }}>
+                <div className="upload-button">
+                  <p> تصفح من جهازك</p>
+                </div>
+              </label>
+            </div>
+          )}
           <div className="input-container">
             <button className="input-button">
               <i className="icon-class">اضافة</i>
@@ -96,11 +126,7 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
             {product.photoes?.map((image, index) => (
               <div key={index} className="uploaded-image">
                 <img
-                  src={
-                    image instanceof File
-                      ? URL.createObjectURL(image)
-                      : `https://goservback.alyoumsa.com/public/storage/${image}`
-                  }
+                  src={`https://salla1-001-site1.anytempurl.com/${image}`}
                   alt={`Uploaded ${index + 1}`}
                 />
               </div>
