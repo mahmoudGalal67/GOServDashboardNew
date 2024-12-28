@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "../../ProductCard.css";
 import "../../ProductsRow.css";
 import { Modal, Button } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 
 import { Request } from "../../../../../components/utils/Request";
 
-const CategoryModal = ({ isColumn, setcategories, brand }) => {
+const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [isMainCategory, setIsMainCategory] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -13,6 +14,8 @@ const CategoryModal = ({ isColumn, setcategories, brand }) => {
   const [categoryNameAR, setCategoryNameAR] = useState("");
   const [categoryNameEN, setCategoryNameEN] = useState("");
   const [file, setfile] = useState(null);
+
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const [loading, setloading] = useState(false);
   const [err, seterr] = useState(false);
@@ -42,24 +45,25 @@ const CategoryModal = ({ isColumn, setcategories, brand }) => {
     const data = {
       Brand_name: categoryNameEN,
       Details: "Nike is a leading brand in sportswear and equip",
-      Category_photo: file,
       Add_to_main_brand: true,
+      // Category_photo: file,
     };
 
     try {
       setloading(true);
       const response = await Request({
-        url: `/addbrands?cat_id=${brand.id}`,
+        url: `/addbrands?cat_id=${categoryId}`,
         method: "POST",
         data,
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${cookies.token}`,
         },
       });
 
       if (response.status === 200 || response.status === 201) {
-        alert("Category added successfully");
-        setcategories((prev) => [...prev, response.data]);
+        alert("Brand added successfully");
+        setbrands((prev) => [...prev, response.data]);
         setShowCategoryModal(false);
         setloading(false);
       }

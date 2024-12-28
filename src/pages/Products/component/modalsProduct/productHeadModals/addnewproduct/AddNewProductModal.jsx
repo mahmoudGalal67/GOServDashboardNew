@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../../../ProductHead.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Placeholder } from "react-bootstrap";
 import Readymadetemplates from "./Readymadetemplates";
 import { ProductContext } from "../../../../../../components/context/Product";
 import { Request } from "../../../../../../components/utils/Request";
 
 import { useCookies } from "react-cookie";
 
-const AddNewProductModal = ({ setbrand }) => {
+const AddNewProductModal = () => {
   const { dispatch } = useContext(ProductContext);
 
   const [categories, setcategories] = useState([]);
@@ -18,10 +18,13 @@ const AddNewProductModal = ({ setbrand }) => {
   const handleCloseModal = () => setshowAddProductModal(false);
 
   const [cookies, setCookie] = useCookies(["token"]);
+  const [activeCategory, setactiveCategory] = useState(null);
   const handleAddProduct = (category) => {
+    setactiveCategory(category.category_id);
     const newProductData = {
       product_id: 0,
       categoryId: category.category_id,
+      Placeholder: category.category_name_en,
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
       form: true,
@@ -89,7 +92,8 @@ const AddNewProductModal = ({ setbrand }) => {
         },
       ],
     };
-    dispatch({ type: "addProducrForm", payload: { newProductData } });
+    dispatch({ type: "addProducrForm", payload: { ...newProductData } });
+
     handleCloseModal();
   };
 
@@ -113,6 +117,7 @@ const AddNewProductModal = ({ setbrand }) => {
     };
     getcategories();
   }, []);
+
   return (
     <>
       <Button className="btn-newadd-product" onClick={handleShowModal}>

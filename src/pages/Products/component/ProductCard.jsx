@@ -72,13 +72,20 @@ const ProductCard = ({
   const deleteProduct = async (id) => {
     if (id != 0) {
       Request({
-        url: `api/dashboard/products/${id}`,
+        url: `api/Product_details/deleteprod?id=${id}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
       });
     }
     dispatch({
       type: "deleteProduct",
-      payload: { id },
+      payload: {
+        categoryId: productCategory,
+        brandId: Productbrand,
+        product_id: id,
+      },
     });
   };
 
@@ -115,10 +122,10 @@ const ProductCard = ({
       setloading(true);
       const { data } = await Request({
         url:
-          updatedProduct.id != 0
-            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${productBrand}&trademarkid=2`
-            : `/api/Product_details/add?cat_id=${productCategory}&bid=${productBrand}&userid=1&trade_mark_id=2`,
-        method: "POST",
+          updatedProduct.product_id != 0
+            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${Productbrand}&trademarkid=2`
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${Productbrand}&userid=1&trade_mark_id=2`,
+        method: updatedProduct.product_id != 0 ? "PUT" : "POST",
         data: {
           ...updatedProduct,
         },
@@ -129,15 +136,18 @@ const ProductCard = ({
 
       setloading(false);
       toast.success("you have been added product successfuly");
-
       dispatch({
         type: "addNewProduct",
-        payload: { newproduct: data },
+        payload: {
+          ...data[0],
+          categoryId: productCategory,
+          brandId: Productbrand,
+        },
       });
     } catch (error) {
       console.log(error);
       setloading(false);
-      toast.error(error.response.data.message);
+      toast.error(JSON.stringify(error.response?.data?.errors));
     }
   };
 
@@ -171,7 +181,7 @@ const ProductCard = ({
             />
             <button
               className="upload-icon deleteCardButton"
-              onClick={() => deleteProduct(updatedProduct.id)}
+              onClick={() => deleteProduct(updatedProduct.product_id)}
             >
               X
             </button>
@@ -206,7 +216,11 @@ const ProductCard = ({
                   <input
                     type="text"
                     required
-                    // placeholder={brand ? brand.category_name_en : ""}
+                    placeholder={
+                      updatedProduct.Placeholder
+                        ? updatedProduct.Placeholder
+                        : ""
+                    }
                     name="product_name"
                     value={updatedProduct.product_name_ar}
                     onChange={(e) =>
@@ -315,7 +329,7 @@ const ProductCard = ({
                 isColumn={true}
                 setUpdatedProduct={setUpdatedProduct}
                 setbrands={setbrands}
-                brands={brands}
+                categoryId={productCategory}
               />
             </div>
             <div className="field">

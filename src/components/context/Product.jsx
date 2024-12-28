@@ -16,48 +16,70 @@ const ProductReducer = (state, action) => {
         products: action.payload,
       };
     case "addNewProduct":
-      return {
-        ...state,
-        products: state.products.map((category) => {
-          if (category.id == action.payload.categoryId) {
-            category.brandsDto.map((brand, i) => {
-              if (brand.brand_id == action.payload.brandId) {
-                brand.productDto.map((product) => {
-                  if (product.id == action.payload.newproduct.id) {
-                    return { ...action.payload.newproduct };
-                  } else {
-                    return product;
-                  }
-                });
-              } else {
-                return brand;
-              }
-            });
-          } else {
-            return category;
-          }
-        }),
-      };
+      // Find the category
+      const category1 = state.products.find(
+        (cat) => cat.category_id === parseInt(action.payload.categoryId)
+      );
+
+      if (!category1) {
+        alert("Category not found");
+        return { ...state };
+      }
+
+      // Find the brand
+      // const brand = category.brandsDto.find((b) => b.brand_id === parseInt(1));
+      const brand1 = category1.brandsDto.find(
+        (b) => b.brand_id === parseInt(action.payload.brandId)
+      );
+
+      if (!brand1) {
+        alert("Brand not found");
+        return { ...state };
+      }
+      // Find the Product
+      let Product1 = brand1.productDto.find(
+        (P) => P.product_id === action.payload.product_id
+      );
+      if (Product1) {
+        Product1 = { ...action.payload };
+        return {
+          ...state,
+        };
+      } else {
+        // brand1.productDto = [action.payload, ...brand1.productDto];
+        return { ...state };
+      }
+
     case "addProducrForm":
+      // Find the category
+      const category = state.products.find(
+        (cat) => cat.category_id === parseInt(action.payload.categoryId)
+      );
+      if (!category) {
+        alert("Category not found");
+        return { ...state };
+      }
+
+      // Find the brand
+      // const brand = category.brandsDto.find((b) => b.brand_id === parseInt(1));
+      const brand = category.brandsDto[0];
+      if (!brand) {
+        alert("Brand not found");
+        return { ...state };
+      }
+      // Find the Product
+      let Product = brand.productDto.find((P) => P.product_id === 0);
+
+      if (Product) {
+        Product = { ...action.payload };
+        return {
+          ...state,
+        };
+      }
+      // Add the product
+      brand.productDto = [action.payload, ...brand.productDto];
       return {
         ...state,
-        products: state.products.map((category) => {
-          if (category.id == action.payload.categoryId) {
-            category.brandsDto = category.brandsDto.map((brand, i) => {
-              if (i == 0) {
-                return {
-                  ...brand,
-                  productDto: [...brand.productDto, action.payload.newproduct],
-                };
-              } else {
-                return brand;
-              }
-            });
-            return category;
-          } else {
-            return category;
-          }
-        }),
       };
     case "updateMainImages":
       return {
@@ -115,11 +137,31 @@ const ProductReducer = (state, action) => {
       }
       return state;
     case "deleteProduct":
+      // Find the category
+      const category2 = state.products.find(
+        (cat) => cat.category_id === parseInt(action.payload.categoryId)
+      );
+
+      if (!category2) {
+        alert("Category not found");
+        return { ...state };
+      }
+
+      // Find the brand
+      // const brand = category.brandsDto.find((b) => b.brand_id === parseInt(1));
+      const brand2 = category2.brandsDto.find(
+        (b) => b.brand_id === action.payload.brandId
+      );
+      if (!brand2) {
+        alert("Brand not found");
+        return { ...state };
+      }
+      // Find the Product
+      brand2.productDto = brand2.productDto.filter(
+        (P) => P.product_id != action.payload.product_id
+      );
       return {
         ...state,
-        products: state.products.filter(
-          (product) => product.id != action.payload.id
-        ),
       };
     default:
       return state;

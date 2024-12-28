@@ -20,18 +20,18 @@ const Category = ({ category }) => {
           },
         });
         setbrands(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
     getbrands();
   }, []);
+
   if (!category.brandsDto.length > 0) {
     return <></>;
   }
   return (
-    <div className="category">
+    <div className="category" id={category.category_id}>
       <h2>{category.category_name_ar}</h2>
       {category.brandsDto.map((brand) => (
         <div key={brand.brand_id} className="brand">
@@ -54,7 +54,7 @@ const Category = ({ category }) => {
 };
 // Category Component
 
-const ProductList = ({ brand }) => {
+const ProductList = () => {
   const { products } = useContext(ProductContext);
 
   return (
