@@ -18,34 +18,46 @@ const ProductReducer = (state, action) => {
     case "addNewProduct":
       return {
         ...state,
-        products: state.products.map((item) => {
-          if (item.id == action.payload.newproduct.id) {
-            return { ...action.payload.newproduct };
+        products: state.products.map((category) => {
+          if (category.id == action.payload.categoryId) {
+            category.brandsDto.map((brand, i) => {
+              if (brand.brand_id == action.payload.brandId) {
+                brand.productDto.map((product) => {
+                  if (product.id == action.payload.newproduct.id) {
+                    return { ...action.payload.newproduct };
+                  } else {
+                    return product;
+                  }
+                });
+              } else {
+                return brand;
+              }
+            });
           } else {
-            return item;
+            return category;
           }
         }),
       };
     case "addProducrForm":
-      let newProducts;
-      if (state.products.lenght == 0) {
-        newProducts = [{ ...action.payload }, ...state.products];
-      } else if (state.products[0]?.id == 0) {
-        newProducts = state.products.map((product) => {
-          if (product.id == 0) {
-            return {
-              ...action.payload,
-            };
-          } else {
-            return product;
-          }
-        });
-      } else {
-        newProducts = [{ ...action.payload }, ...state.products];
-      }
       return {
         ...state,
-        products: newProducts,
+        products: state.products.map((category) => {
+          if (category.id == action.payload.categoryId) {
+            category.brandsDto = category.brandsDto.map((brand, i) => {
+              if (i == 0) {
+                return {
+                  ...brand,
+                  productDto: [...brand.productDto, action.payload.newproduct],
+                };
+              } else {
+                return brand;
+              }
+            });
+            return category;
+          } else {
+            return category;
+          }
+        }),
       };
     case "updateMainImages":
       return {

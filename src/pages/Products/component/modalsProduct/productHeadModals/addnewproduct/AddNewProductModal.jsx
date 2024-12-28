@@ -18,10 +18,10 @@ const AddNewProductModal = ({ setbrand }) => {
   const handleCloseModal = () => setshowAddProductModal(false);
 
   const [cookies, setCookie] = useCookies(["token"]);
-  const handleAddProduct = (placeholder) => {
-    setbrand(placeholder);
+  const handleAddProduct = (category) => {
     const newProductData = {
-      id: 0,
+      product_id: 0,
+      categoryId: category.category_id,
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
       form: true,
@@ -89,7 +89,7 @@ const AddNewProductModal = ({ setbrand }) => {
         },
       ],
     };
-    dispatch({ type: "addProducrForm", payload: newProductData });
+    dispatch({ type: "addProducrForm", payload: { newProductData } });
     handleCloseModal();
   };
 
