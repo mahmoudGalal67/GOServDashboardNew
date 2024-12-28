@@ -103,8 +103,7 @@ const AddNewProductModal = ({ setbrand }) => {
         const { data } = await Request({
           url: `/Getallcategories?userid=1`,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3RyaW5nIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbImFkbWluIiwib3duZXIiXSwiZXhwIjoxNzM1Mjk3MzcwfQ.hw2CTpiJ00Mn8QFHGWSYVQIHQmULGC6iBk89l1w7tsXKNg8x5tbGo-ap-sGbt6j2ssC-pVCFY0X627iaU4zKvg
-`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         });
         setcategories(data);

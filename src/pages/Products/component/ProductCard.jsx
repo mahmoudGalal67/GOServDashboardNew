@@ -36,9 +36,15 @@ import DotLoader from "react-spinners/DotLoader";
 //   );
 // }
 
-const ProductCard = ({ product, categories, setcategories, brand }) => {
+const ProductCard = ({
+  product,
+  productBrand,
+  productCategory,
+  setbrands,
+  brands,
+}) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
-  const [ProductCategory, setProductCategory] = useState(null);
+  const [Productbrand, setProductbrand] = useState(productBrand);
 
   const [cookies, setCookie] = useCookies(["token"]);
 
@@ -80,12 +86,12 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
     let productData = JSON.parse(JSON.stringify(updatedProduct));
 
     if (
-      !productData.product_name_en ||
+      !productData.product_name_ar ||
       !productData.photoes ||
       productData.price == "" ||
-      !ProductCategory
+      !Productbrand
     ) {
-      toast.warn("please add all fields");
+      toast.warn("please add all fields ");
       return;
     }
     if (!unlimited && productData.product_colors) {
@@ -110,8 +116,8 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
       const { data } = await Request({
         url:
           updatedProduct.id != 0
-            ? `/public/api/dashboard/products`
-            : `/api/Product_details/add?cat_id=${brand.category_id}&bid=${ProductCategory}&userid=1&trade_mark_id=1`,
+            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${productBrand}&trademarkid=2`
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${productBrand}&userid=1&trade_mark_id=2`,
         method: "POST",
         data: {
           ...updatedProduct,
@@ -200,8 +206,9 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
                   <input
                     type="text"
                     required
-                    placeholder={brand ? brand.category_name_en : ""}
+                    // placeholder={brand ? brand.category_name_en : ""}
                     name="product_name"
+                    value={updatedProduct.product_name_ar}
                     onChange={(e) =>
                       changeProductState(e.target.name, e.target.value, true)
                     }
@@ -290,25 +297,25 @@ const ProductCard = ({ product, categories, setcategories, brand }) => {
               <div className="selectClassificationClass">
                 <select
                   name="category"
-                  onChange={(e) => setProductCategory(e.target.value)}
+                  onChange={(e) => setProductbrand(e.target.value)}
                 >
-                  {categories.map((category) => (
+                  <option disabled>Choose Product Brand</option>
+                  {brands.map((brand) => (
                     <option
-                      key={category.brand_id}
-                      value={category.brand_id}
-                      // selected={category.brand_name == product.category}
+                      key={brand.brand_id}
+                      value={brand.brand_id}
+                      selected={brand.brand_id == Productbrand}
                     >
-                      {category.brand_name}
+                      {brand.brand_name}
                     </option>
                   ))}
                 </select>
               </div>
               <CategoryModal
                 isColumn={true}
-                categories={categories}
                 setUpdatedProduct={setUpdatedProduct}
-                setcategories={setcategories}
-                brand={brand}
+                setbrands={setbrands}
+                brands={brands}
               />
             </div>
             <div className="field">

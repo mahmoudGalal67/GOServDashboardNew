@@ -1,47 +1,67 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import "./Products.css";
 import { ProductContext } from "../../../components/context/Product";
 import { Request } from "../../../components/utils/Request";
 import { useCookies } from "react-cookie";
 
-const ProductList = ({ brand }) => {
+// Category Component
+const Category = ({ category }) => {
+  const [brands, setbrands] = useState([]);
   const [cookies, setCookie] = useCookies(["token"]);
 
-  const { products } = useContext(ProductContext);
-  const [categories, setcategories] = useState([]);
-
   useEffect(() => {
-    if (brand) {
-      const getcategories = async () => {
-        try {
-          const { data } = await Request({
-            url: `/Getallbrands?catid=${brand.category_id}`,
-            headers: {
-              Authorization: `Bearer  ${cookies.token}`,
-            },
-          });
-          setcategories(data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      getcategories();
-    }
-  }, [brand]);
+    const getbrands = async () => {
+      try {
+        const { data } = await Request({
+          url: `/Getallbrands?catid=${category.category_id}`,
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        });
+        setbrands(data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getbrands();
+  }, []);
+  if (!category.brandsDto.length > 0) {
+    return <></>;
+  }
+  return (
+    <div className="category">
+      <h2>{category.category_name_ar}</h2>
+      {category.brandsDto.map((brand) => (
+        <div key={brand.brand_id} className="brand">
+          <div className="product-flex">
+            {brand.productDto.map((product) => (
+              <ProductCard
+                brands={brands}
+                key={product.product_id}
+                product={product}
+                setbrands={setbrands}
+                productBrand={brand.brand_id}
+                productCategory={category.category_id}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+// Category Component
+
+const ProductList = ({ brand }) => {
+  const { products } = useContext(ProductContext);
+
   return (
     <>
-      <div className="product-flex">
-        {products.map((product, index) => (
-          <ProductCard
-            key={index}
-            product={product}
-            categories={categories}
-            setcategories={setcategories}
-            brand={brand}
-          />
-        ))}
-      </div>
+      {products.map((category) => (
+        <Category key={category.category_id} category={category} />
+      ))}
     </>
   );
 };

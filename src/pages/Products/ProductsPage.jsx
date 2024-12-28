@@ -23,25 +23,25 @@ const ProductsPage = (props) => {
     position: "absolute",
     inset: "50%",
   };
-  // useEffect(() => {
-  //   const getProduts = async () => {
-  //     setloading(true);
-  //     try {
-  //       const { data } = await Request({
-  //         url: `/api/dashboard/products`,
-  //       });
-  //       dispatch({
-  //         type: "fetchProducts",
-  //         payload: data.slice(0, 10),
-  //       });
-  //       setloading(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setloading(false);
-  //     }
-  //   };
-  //   getProduts();
-  // }, []);
+  useEffect(() => {
+    const getProduts = async () => {
+      setloading(true);
+      try {
+        const { data } = await Request({
+          url: `/api/Product_details/Getall?userid=1`,
+        });
+        dispatch({
+          type: "fetchProducts",
+          payload: data.slice(0, 10),
+        });
+        setloading(false);
+      } catch (error) {
+        console.log(error);
+        setloading(false);
+      }
+    };
+    getProduts();
+  }, []);
 
   return (
     <div
