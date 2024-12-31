@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -21,8 +21,19 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import Notifications from "./pages/Notifications/Notifications";
 import Feedback from "./pages/Feedback/Feedback";
 import Marketing from "./pages/Marketing/Marketing";
+
+import Cookies from "js-cookie";
+
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const token = Cookies.get("token");
+  console.log("Retrieved token:", token);
+  useEffect(() => {
+    if (token) {
+      console.log("Retrieved token:", token);
+      console.log("Retrieved token:");
+    }
+  }, [token]);
 
   return (
     <BrowserRouter>
@@ -91,22 +102,26 @@ function App() {
           path="/themes"
           element={<Themes darkMode={darkMode} setDarkMode={setDarkMode} />}
         />
-          <Route
+        <Route
           path="/userProfile"
-          element={<UserProfile darkMode={darkMode} setDarkMode={setDarkMode} />}
-        />    
+          element={
+            <UserProfile darkMode={darkMode} setDarkMode={setDarkMode} />
+          }
+        />
         <Route
-         path="/notifications"
-         element={<Notifications darkMode={darkMode} setDarkMode={setDarkMode} />}
-       />
+          path="/notifications"
+          element={
+            <Notifications darkMode={darkMode} setDarkMode={setDarkMode} />
+          }
+        />
         <Route
-         path="/feedback"
-         element={<Feedback darkMode={darkMode} setDarkMode={setDarkMode} />}
-       />
-         <Route
-         path="/marketing"
-         element={<Marketing darkMode={darkMode} setDarkMode={setDarkMode} />}
-       />
+          path="/feedback"
+          element={<Feedback darkMode={darkMode} setDarkMode={setDarkMode} />}
+        />
+        <Route
+          path="/marketing"
+          element={<Marketing darkMode={darkMode} setDarkMode={setDarkMode} />}
+        />
         <Route
           path="*"
           element={<NotFound darkMode={darkMode} setDarkMode={setDarkMode} />}
