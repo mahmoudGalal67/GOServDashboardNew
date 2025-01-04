@@ -13,11 +13,8 @@ import { CiShare2 } from "react-icons/ci";
 import { IoIosArrowBack, IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-import { useSearchParams } from "react-router-dom";
-
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -108,7 +105,9 @@ const Sidebar = () => {
         </div>
 
         <p className="text-center ">
-          {searchParams.get("name") ? searchParams.get("name") : "متجر الهدايا"}
+          {JSON.parse(localStorage.getItem("userInfo"))?.name
+            ? JSON.parse(localStorage.getItem("userInfo"))?.name
+            : "متجر الهدايا"}
         </p>
         <div
           style={{

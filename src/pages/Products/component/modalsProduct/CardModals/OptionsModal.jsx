@@ -12,7 +12,7 @@ import { Request } from "../../../../../components/utils/Request";
 const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
   const [showOptionsModal, setShowOptionsModal] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["usertoken"]);
 
   const handleOptionsModalClose = () => setShowOptionsModal(false);
   const handleOptionsModalShow = () => setShowOptionsModal(true);
@@ -61,7 +61,7 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
         method: "POST",
         data: formData,
         headers: {
-          Authorization: `Bearer  ${cookies.token}`,
+          Authorization: `Bearer  ${cookies.usertoken}`,
         },
       });
 

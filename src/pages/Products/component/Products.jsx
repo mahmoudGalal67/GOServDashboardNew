@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 // Category Component
 const Category = ({ category }) => {
   const [brands, setbrands] = useState([]);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["userusertoken"]);
 
   useEffect(() => {
     const getbrands = async () => {
@@ -16,7 +16,7 @@ const Category = ({ category }) => {
         const { data } = await Request({
           url: `/Getallbrands?catid=${category.category_id}`,
           headers: {
-            Authorization: `Bearer ${cookies.token}`,
+            Authorization: `Bearer ${cookies.usertoken}`,
           },
         });
         setbrands(data);
@@ -32,23 +32,31 @@ const Category = ({ category }) => {
   }
   return (
     <div className="category" id={category.category_id}>
-      <h2>{category.category_name_ar}</h2>
-      {category.brandsDto.map((brand) => (
-        <div key={brand.brand_id} className="brand">
-          <div className="product-flex">
-            {brand.productDto.map((product) => (
-              <ProductCard
-                brands={brands}
-                key={product.product_id}
-                product={product}
-                setbrands={setbrands}
-                productBrand={brand.brand_id}
-                productCategory={category.category_id}
-              />
-            ))}
-          </div>
+      {category.brandsDto.some(
+        (brand) => brand.productDto && brand.productDto.length > 0
+      ) && <h2>{category.category_name_ar}</h2>}
+      <div className="brand">
+        <div className="product-flex">
+          {category.brandsDto.map((brand) => {
+            return (
+              <Fragment key={brand.brand_id}>
+                {brand.productDto.map((product) => {
+                  return (
+                    <ProductCard
+                      brands={brands}
+                      key={product.product_id}
+                      product={product}
+                      setbrands={setbrands}
+                      productBrand={brand.brand_id}
+                      productCategory={category.category_id}
+                    />
+                  );
+                })}
+              </Fragment>
+            );
+          })}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
@@ -59,9 +67,11 @@ const ProductList = () => {
 
   return (
     <>
-      {products.map((category) => (
-        <Category key={category.category_id} category={category} />
-      ))}
+      {products.map((category, i) => {
+        return (
+          <Category key={category.category_id} i={i} category={category} />
+        );
+      })}
     </>
   );
 };

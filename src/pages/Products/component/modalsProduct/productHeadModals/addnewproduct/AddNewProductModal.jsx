@@ -17,8 +17,11 @@ const AddNewProductModal = () => {
   const handleShowModal = () => setshowAddProductModal(true);
   const handleCloseModal = () => setshowAddProductModal(false);
 
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["userusertoken"]);
   const [activeCategory, setactiveCategory] = useState(null);
+
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
+
   const handleAddProduct = (category) => {
     setactiveCategory(category.category_id);
     const newProductData = {
@@ -105,9 +108,9 @@ const AddNewProductModal = () => {
     const getcategories = async () => {
       try {
         const { data } = await Request({
-          url: `/Getallcategories?userid=1`,
+          url: `/Getallcategories?userid=${currentUser}`,
           headers: {
-            Authorization: `Bearer ${cookies.token}`,
+            Authorization: `Bearer ${cookies.usertoken}`,
           },
         });
         setcategories(data);

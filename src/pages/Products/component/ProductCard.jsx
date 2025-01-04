@@ -46,7 +46,8 @@ const ProductCard = ({
   const [updatedProduct, setUpdatedProduct] = useState(product);
   const [Productbrand, setProductbrand] = useState(productBrand);
 
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["usertoken"]);
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
 
   const override = {
     position: "absolute",
@@ -75,7 +76,7 @@ const ProductCard = ({
         url: `api/Product_details/deleteprod?id=${id}`,
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${cookies.token}`,
+          Authorization: `Bearer ${cookies.usertoken}`,
         },
       });
     }
@@ -124,13 +125,13 @@ const ProductCard = ({
         url:
           updatedProduct.product_id != 0
             ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${Productbrand}&trademarkid=2`
-            : `/api/Product_details/add?cat_id=${productCategory}&bid=${Productbrand}&userid=1&trade_mark_id=2`,
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${Productbrand}&userid=${currentUser}&trade_mark_id=2`,
         method: updatedProduct.product_id != 0 ? "PUT" : "POST",
         data: {
           ...updatedProduct,
         },
         headers: {
-          Authorization: `Bearer ${cookies.token}`,
+          Authorization: `Bearer ${cookies.usertoken}`,
         },
       });
 
@@ -230,19 +231,22 @@ const ProductCard = ({
                 </div>
               </div>
               <div className="select-wrapper">
+                {lang == "ar" ? (
+                  <img width={20} src={arflag} alt="" />
+                ) : (
+                  <img width={20} src={enflag} alt="" />
+                )}
+
                 <select
                   name="language"
                   className="language-select"
                   onChange={(e) => setLang(e.target.value)}
                 >
-                  <option selected={true} value="ar">
-                    AR <img src={arflag} style={{ width: "20px" }} alt="" />
-                  </option>
-                  <option value="en">
+                  <option value="en" style={{ width: "60px" }}>
                     {" "}
-                    <img src={enflag} alt="" style={{ width: "20px" }} />
                     EN
                   </option>
+                  <option value="ar">AR</option>
                 </select>
               </div>
             </div>

@@ -9,7 +9,7 @@ import { Request } from "../../../../../components/utils/Request";
 
 const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
   const [showModal, setShowModal] = useState(false);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["usertoken"]);
 
   const [loading, setloading] = useState(false);
 
@@ -32,7 +32,7 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
         data: formData,
         headers: {
           // "Content-Type": "multipart/form-data",
-          Authorization: `Bearer  ${cookies.token}`,
+          Authorization: `Bearer  ${cookies.usertoken}`,
         },
       });
       setUpdatedProduct((prev) => ({

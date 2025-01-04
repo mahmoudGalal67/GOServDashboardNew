@@ -19,6 +19,8 @@ const ProductsPage = (props) => {
 
   const [loading, setloading] = useState(false);
 
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
+
   const override = {
     position: "absolute",
     inset: "50%",
@@ -28,7 +30,7 @@ const ProductsPage = (props) => {
       setloading(true);
       try {
         const { data } = await Request({
-          url: `/api/Product_details/Getall?userid=1`,
+          url: `/api/Product_details/Getall?userid=${currentUser}`,
         });
         dispatch({
           type: "fetchProducts",

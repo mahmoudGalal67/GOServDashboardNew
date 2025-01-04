@@ -9,6 +9,8 @@ import { HiOutlineMoon } from "react-icons/hi2";
 import { GoGift } from "react-icons/go";
 import { Link } from "react-router-dom";
 
+import Cookies from "js-cookie";
+
 const Profileropdown = ({ setDarkMode }) => {
   const [visible, setVisible] = useState(false);
 
@@ -23,6 +25,13 @@ const Profileropdown = ({ setDarkMode }) => {
       document.body.classList.remove("activeProfile");
     }
   }, [visible]);
+
+  const HandleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("userInfo");
+    Cookies.remove("usertoken");
+    window.location.href = "https://sallaplus.com";
+  };
 
   return (
     <div className="profileDdBox">
@@ -71,7 +80,7 @@ const Profileropdown = ({ setDarkMode }) => {
           </li>
           <li className="divider"></li>
           <li>
-            <a href="#" className="logout">
+            <a href="#" className="logout" onClick={HandleLogout}>
               <FiLogOut />
               تسجيل الخروج
             </a>

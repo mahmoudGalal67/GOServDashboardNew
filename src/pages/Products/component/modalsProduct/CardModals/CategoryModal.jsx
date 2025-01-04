@@ -15,7 +15,7 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
   const [categoryNameEN, setCategoryNameEN] = useState("");
   const [file, setfile] = useState(null);
 
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["usertoken"]);
 
   const [loading, setloading] = useState(false);
   const [err, seterr] = useState(false);
@@ -40,13 +40,37 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
     }
   };
 
+  const uploadeCategoryImage = async (image) => {
+    const formData = new FormData();
+    formData.append("photo", image);
+
+    try {
+      setloading(true);
+      const { data } = await Request({
+        url: `/upload_single_photo`,
+        method: "POST",
+        data: formData,
+        headers: {
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
+      console.log(data);
+      setfile(data);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+      setloading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      Brand_name: categoryNameEN,
+      Brand_name: categoryNameAR,
       Details: "Nike is a leading brand in sportswear and equip",
       Add_to_main_brand: true,
-      // Category_photo: file,
+      photoes: file,
+      Category_id: categoryId,
     };
 
     try {
@@ -57,7 +81,7 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
         data,
         headers: {
           // "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${cookies.token}`,
+          Authorization: `Bearer ${cookies.usertoken}`,
         },
       });
 
@@ -144,19 +168,21 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setfile(e.target.files[0])}
+                onChange={(e) => uploadeCategoryImage(e.target.files[0])}
                 style={{ display: "none" }}
                 id="file-input"
               />
               <label htmlFor="file-input" style={{ cursor: "pointer" }}>
                 <div className="upload-button">
-                  <p> اضف صورة التصنيف </p>
+                  <p> {loading ? "Loading ..." : " اضف صورة للتصنيف"} </p>
                 </div>
               </label>
               <div className="uploaded-image">
                 <img
                   style={{ width: "100%" }}
-                  src={file && URL.createObjectURL(file)}
+                  src={
+                    file && `https://salla1-001-site1.anytempurl.com/${file}`
+                  }
                 />
               </div>
             </div>

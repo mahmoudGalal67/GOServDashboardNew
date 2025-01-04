@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -26,14 +26,26 @@ import Cookies from "js-cookie";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const token = Cookies.get("token");
-  console.log("Retrieved token:", token);
+  const token = Cookies.get("usertoken");
+
+  // useLayoutEffect(() => {
+  //   if (token == undefined) {
+  //     window.location.href = "https://sallaplus.com/login";
+  //   }
+  // }, [token]);
+
   useEffect(() => {
-    if (token) {
-      console.log("Retrieved token:", token);
-      console.log("Retrieved token:");
-    }
-  }, [token]);
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const email = params.get("email");
+    const mobile = params.get("mobile");
+    const userId = params.get("userId");
+    const userPhoto = params.get("userPhoto");
+    localStorage.setItem(
+      "userInfo",
+      JSON.stringify({ name, mobile, userId, userPhoto, email })
+    );
+  }, []);
 
   return (
     <BrowserRouter>

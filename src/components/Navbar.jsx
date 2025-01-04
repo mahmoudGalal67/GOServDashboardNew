@@ -10,11 +10,7 @@ import profilePic from "../assets/112e28edfaa501b1942f68247921fcec.png";
 import Profileropdown from "./Profileropdown";
 import Tooltip from "./Tooltip";
 
-import { useSearchParams } from "react-router-dom";
-
 const Navbar = ({ darkMode, setDarkMode }) => {
-  let [searchParams, setSearchParams] = useSearchParams();
-
   return (
     <div
       className={`navBar fixed top-0 left-0 flex-wrap  lg:flex-nowrap ${
@@ -133,8 +129,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               style={{ width: "28px", height: "28px", borderRadius: "50%" }}
             />
             <span className="text-sm text-gray-600 hidden lg:inline-block">
-              {searchParams.get("name")
-                ? searchParams.get("name")
+              {JSON.parse(localStorage.getItem("userInfo"))?.name
+                ? JSON.parse(localStorage.getItem("userInfo"))?.name
                 : "متجر الهدايا"}
             </span>
             <Profileropdown setDarkMode={setDarkMode} />
