@@ -50,8 +50,12 @@ const ProductsPage = (props) => {
       className={`slidePage flex flex-wrap' ${props.darkMode ? "dark" : ""}`}
       style={{ backgroundColor: props.darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={props.darkMode} setDarkMode={props.setDarkMode} />
+      <Sidebar userInfo={props.userInfo} />
+      <Navbar
+        darkMode={props.darkMode}
+        setDarkMode={props.setDarkMode}
+        userInfo={props.userInfo}
+      />
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-0 lg:px-10 pb-[60px]"
         style={{

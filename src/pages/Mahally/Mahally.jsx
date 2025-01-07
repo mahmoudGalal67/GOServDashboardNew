@@ -1,9 +1,9 @@
-import React from 'react';
-import HeaderSection from './components/HeaderSection';
-import FeatureSection from './components/FeatureSection';
+import React from "react";
+import HeaderSection from "./components/HeaderSection";
+import FeatureSection from "./components/FeatureSection";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
-import HeaderComponent from './components/HeaderComponent';
+import HeaderComponent from "./components/HeaderComponent";
 
 const Mahally = (props) => {
   return (
@@ -11,8 +11,12 @@ const Mahally = (props) => {
       className={`slidePage flex flex-wrap' ${props.darkMode ? "dark" : ""}`}
       style={{ backgroundColor: props.darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={props.darkMode} setDarkMode={props.setDarkMode} />
+      <Sidebar userInfo={props.userInfo} />
+      <Navbar
+        darkMode={props.darkMode}
+        setDarkMode={props.setDarkMode}
+        userInfo={props.userInfo}
+      />
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-0 lg:px-10 pb-[60px]"
         style={{
@@ -27,12 +31,12 @@ const Mahally = (props) => {
           justifyContent: "space-around",
         }}
       >
-      <HeaderComponent />
-      <HeaderSection />
-      <FeatureSection/>
+        <HeaderComponent />
+        <HeaderSection />
+        <FeatureSection />
       </main>
     </div>
   );
-}
+};
 
 export default Mahally;

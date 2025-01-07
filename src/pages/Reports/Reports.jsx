@@ -8,14 +8,18 @@ import HeaderComponent from "./components/HeaderComponent";
 import ReportHeader from "./components/ReportHeader";
 import ReportSelector from "./components/ReportSelector";
 import ReportCards from "./components/ReportCards";
-function Reports({ darkMode, setDarkMode }) {
+function Reports({ darkMode, setDarkMode, userInfo }) {
   return (
     <div
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
       style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Sidebar userInfo={userInfo} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        userInfo={userInfo}
+      />
       {/* <Helper /> */}
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
@@ -30,7 +34,7 @@ function Reports({ darkMode, setDarkMode }) {
           justifyContent: "space-around",
         }}
       >
-        <HeaderComponent/>
+        <HeaderComponent />
         <ReportHeader />
         <ReportSelector />
         <ReportCards />

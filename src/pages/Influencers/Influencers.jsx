@@ -5,14 +5,18 @@ import HeaderComponent from "./components/HeaderComponent";
 import HeadSection from "./components/HeadSection";
 import Swiper from "./components/Swiper";
 import CardGrid from "./components/CardGrid";
-const Influencers = ({ darkMode, setDarkMode }) => {
+const Influencers = ({ darkMode, setDarkMode, userInfo }) => {
   return (
     <div
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
       style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Sidebar userInfo={userInfo} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        userInfo={userInfo}
+      />
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
         style={{

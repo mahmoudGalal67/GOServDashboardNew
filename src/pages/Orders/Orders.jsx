@@ -7,7 +7,7 @@ import Navbar from "../../components/Navbar";
 // import Helper from "../../components/Helper";
 import OrderSummary from "./component/OrderSummary";
 
-function Orders({ darkMode, setDarkMode }) {
+function Orders({ darkMode, setDarkMode, userInfo }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -25,8 +25,12 @@ function Orders({ darkMode, setDarkMode }) {
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
       style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Sidebar userInfo={userInfo} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        userInfo={userInfo}
+      />
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
         style={{
@@ -41,14 +45,14 @@ function Orders({ darkMode, setDarkMode }) {
           justifyContent: "space-around",
         }}
       >
-        <div style={{width:"98%"}}>
-        <HeaderComponent/>
-         <RequestHead />
-        <Swiper
-          selectedIndex={selectedIndex}
-          onCardClick={handleCardClick}
-        /> 
-        <OrderSummary selectedIndex={selectedIndex} showDetails={showDetails} />
+        <div style={{ width: "98%" }}>
+          <HeaderComponent />
+          <RequestHead />
+          <Swiper selectedIndex={selectedIndex} onCardClick={handleCardClick} />
+          <OrderSummary
+            selectedIndex={selectedIndex}
+            showDetails={showDetails}
+          />
         </div>
       </main>
     </div>

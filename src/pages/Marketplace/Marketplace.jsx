@@ -14,15 +14,19 @@ import Sidebar from "../../components/Sidebar";
 import HeaderComponent from "./component/HeaderComponent";
 import sallastar from "./../../assets/sallastar.png";
 
-export default function Marketplace({ darkMode, setDarkMode }) {
+export default function Marketplace({ darkMode, setDarkMode, userInfo }) {
   return (
     <>
       <div
         className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
         style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
       >
-        <Sidebar />
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Sidebar userInfo={userInfo} />
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          userInfo={userInfo}
+        />
         <main
           className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
           style={{

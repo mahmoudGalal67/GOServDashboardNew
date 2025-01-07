@@ -26,6 +26,13 @@ import Cookies from "js-cookie";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [userInfo, setuserInfo] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    userId: "",
+    userPhoto: "",
+  });
   const token = Cookies.get("usertoken");
 
   // useLayoutEffect(() => {
@@ -36,15 +43,24 @@ function App() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
-    const email = params.get("email");
-    const mobile = params.get("mobile");
-    const userId = params.get("userId");
-    const userPhoto = params.get("userPhoto");
+    const name =
+      params.get("name") || JSON.parse(localStorage.getItem("userInfo")).name;
+    const email =
+      params.get("email") || JSON.parse(localStorage.getItem("userInfo")).email;
+    const mobile =
+      params.get("mobile") ||
+      JSON.parse(localStorage.getItem("userInfo")).mobile;
+    const userId =
+      params.get("userId") ||
+      JSON.parse(localStorage.getItem("userInfo")).userId;
+    const userPhoto =
+      params.get("userPhoto") ||
+      JSON.parse(localStorage.getItem("userInfo")).userPhoto;
     localStorage.setItem(
       "userInfo",
       JSON.stringify({ name, mobile, userId, userPhoto, email })
     );
+    setuserInfo({ name, mobile, userId, userPhoto, email });
   }, []);
 
   return (
@@ -52,91 +68,193 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Home
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/products"
           element={
-            <ProductsPage darkMode={darkMode} setDarkMode={setDarkMode} />
+            <ProductsPage
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/orders"
-          element={<Orders darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Orders
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/clients"
-          element={<Clients darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Clients
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/reports"
-          element={<Reports darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Reports
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/mahally"
-          element={<Mahally darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Mahally
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/influencers"
           element={
-            <Influencers darkMode={darkMode} setDarkMode={setDarkMode} />
+            <Influencers
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/experts"
-          element={<Experts darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Experts
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/swelly"
-          element={<Sweply darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Sweply
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/marketPlace"
           element={
-            <Marketplace darkMode={darkMode} setDarkMode={setDarkMode} />
+            <Marketplace
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/settings"
-          element={<Settings darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Settings
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/profile"
           element={
-            <ProfilePage darkMode={darkMode} setDarkMode={setDarkMode} />
+            <ProfilePage
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/wallet"
-          element={<Wallet darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Wallet
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/themes"
-          element={<Themes darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Themes
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/userProfile"
           element={
-            <UserProfile darkMode={darkMode} setDarkMode={setDarkMode} />
+            <UserProfile
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/notifications"
           element={
-            <Notifications darkMode={darkMode} setDarkMode={setDarkMode} />
+            <Notifications
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/feedback"
-          element={<Feedback darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Feedback
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="/marketing"
-          element={<Marketing darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <Marketing
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
         <Route
           path="*"
-          element={<NotFound darkMode={darkMode} setDarkMode={setDarkMode} />}
+          element={
+            <NotFound
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

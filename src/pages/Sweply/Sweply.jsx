@@ -11,15 +11,19 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import social from "./../../assets/social.png";
 
-export default function Sweply({ darkMode, setDarkMode }) {
+export default function Sweply({ darkMode, setDarkMode, userInfo }) {
   return (
     <>
       <div
         className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
         style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
       >
-        <Sidebar />
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Sidebar userInfo={userInfo} />
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          userInfo={userInfo}
+        />
         <main
           className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
           style={{

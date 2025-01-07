@@ -6,15 +6,19 @@ import HeaderComponent from "./component/HeaderComponent";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CiWarning } from "react-icons/ci";
 
-export default function Settings({ darkMode, setDarkMode }) {
+export default function Settings({ darkMode, setDarkMode, userInfo }) {
   return (
     <>
       <div
         className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
         style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
       >
-        <Sidebar />
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Sidebar userInfo={userInfo} />
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          userInfo={userInfo}
+        />
         <main
           className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"
           style={{
@@ -30,7 +34,7 @@ export default function Settings({ darkMode, setDarkMode }) {
             overflowX: "hidden",
           }}
         >
-          <HeaderComponent/>
+          <HeaderComponent />
           <div className="mx-4 whitespace-nowrap">
             <h1 className="my-3">إعدادات المتجر</h1>
             <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">

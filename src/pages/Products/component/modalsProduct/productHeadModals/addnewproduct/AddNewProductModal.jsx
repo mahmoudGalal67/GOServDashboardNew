@@ -27,7 +27,7 @@ const AddNewProductModal = () => {
     const newProductData = {
       product_id: 0,
       categoryId: category.category_id,
-      Placeholder: category.category_name_en,
+      Placeholder: category.category_name_ar,
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
       form: true,
@@ -148,7 +148,7 @@ const AddNewProductModal = () => {
                 className="text-container"
                 onClick={() => handleAddProduct(item)}
               >
-                <h6> {item.category_name_en}</h6>
+                <h6> {item.category_name_ar}</h6>
                 <p> {item.details_en}</p>
               </div>
               <div className="icon-container-drop">

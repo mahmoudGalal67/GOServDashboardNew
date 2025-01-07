@@ -3,17 +3,20 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import HeaderComponent from "./components/HeaderComponent";
 import FeedbackHead from "./components/FeedbackHead";
-import FeedbackCard from './components/FeedbackCard';
-const Feedback = ({ darkMode, setDarkMode }) => {
-
+import FeedbackCard from "./components/FeedbackCard";
+const Feedback = ({ darkMode, setDarkMode, userInfo }) => {
   return (
     <>
       <div
         className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
         style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
       >
-        <Sidebar />
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Sidebar userInfo={userInfo} />
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          userInfo={userInfo}
+        />
         {/* <Helper /> */}
         <main
           className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[10px]"
@@ -32,7 +35,7 @@ const Feedback = ({ darkMode, setDarkMode }) => {
           <div style={{ width: "98%" }}>
             <HeaderComponent />
             <FeedbackHead />
-            <FeedbackCard/>
+            <FeedbackCard />
           </div>
         </main>
       </div>

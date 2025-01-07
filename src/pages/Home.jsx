@@ -13,14 +13,20 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Helper from "../components/Helper";
 
-const Home = ({ darkMode, setDarkMode }) => {
+const Home = ({ darkMode, setDarkMode, userInfo }) => {
+  console.log(userInfo);
+
   return (
     <div
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
       style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Sidebar userInfo={userInfo} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        userInfo={userInfo}
+      />
       <Helper />
       <main
         className="w-full h-full lg:w-[calc(100%-260px)] pt-0 px-4 lg:px-10 pb-[60px]"

@@ -10,7 +10,7 @@ import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import OrderCenter from "./Component/OrderCenter";
 import MerchantServices from "./Component/MerchantServices";
 
-function Experts({ darkMode, setDarkMode }) {
+function Experts({ darkMode, setDarkMode, userInfo }) {
   const [switched, setSwitched] = useState(1);
   const setswitched = (to) => {
     setSwitched(to);
@@ -20,8 +20,12 @@ function Experts({ darkMode, setDarkMode }) {
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}
       style={{ backgroundColor: darkMode ? "#282828" : "transparent" }}
     >
-      <Sidebar />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Sidebar userInfo={userInfo} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        userInfo={userInfo}
+      />
       {/* <Helper /> */}
       <main
         style={{
@@ -32,7 +36,7 @@ function Experts({ darkMode, setDarkMode }) {
         }}
         className="w-full overflow-x-hidden mb-4"
       >
-        <HeaderComponent/>
+        <HeaderComponent />
         <div className="Experts ms-6 my-10">
           <div className="h-6 w-full">
             <ImgSwiper />

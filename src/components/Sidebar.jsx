@@ -13,7 +13,7 @@ import { CiShare2 } from "react-icons/ci";
 import { IoIosArrowBack, IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ userInfo }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
@@ -105,9 +105,7 @@ const Sidebar = () => {
         </div>
 
         <p className="text-center ">
-          {JSON.parse(localStorage.getItem("userInfo"))?.name
-            ? JSON.parse(localStorage.getItem("userInfo"))?.name
-            : "متجر الهدايا"}
+          {userInfo?.name ? userInfo?.name : "متجر الهدايا"}
         </p>
         <div
           style={{

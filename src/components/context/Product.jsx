@@ -37,16 +37,23 @@ const ProductReducer = (state, action) => {
         return { ...state };
       }
       // Find the Product
-      let Product1 = brand1.productDto.find(
+      let updatedProduct = brand1.productDto.find(
         (P) => P.product_id === action.payload.product_id
       );
-      if (Product1) {
-        Product1 = { ...action.payload };
+      if (updatedProduct) {
+        updatedProduct = { ...action.payload };
         return {
           ...state,
         };
       } else {
-        // brand1.productDto = [action.payload, ...brand1.productDto];
+        let newProduct = brand1.productDto.map((P) => {
+          if (P.product_id === 0) {
+            return { ...action.payload };
+          } else {
+            return P;
+          }
+        });
+        brand1.productDto = newProduct;
         return { ...state };
       }
 
