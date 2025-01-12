@@ -86,7 +86,7 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        alert("Brand added successfully");
+        // alert("Brand added successfully");
         setbrands((prev) => [...prev, response.data[0]]);
         setShowCategoryModal(false);
         setloading(false);

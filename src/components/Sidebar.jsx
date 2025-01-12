@@ -131,7 +131,7 @@ const Sidebar = ({ userInfo }) => {
               fontSize: "12px",
             }}
           >
-            زياره المتجر
+            <a href="https://theme.sallaplus.com/"> زياره المتجر</a>
             <IoIosArrowBack />
           </p>
           {/* share icon */}

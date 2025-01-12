@@ -35,11 +35,11 @@ function App() {
   });
   const token = Cookies.get("usertoken");
 
-  // useLayoutEffect(() => {
-  //   if (token == undefined) {
-  //     window.location.href = "https://sallaplus.com/login";
-  //   }
-  // }, [token]);
+  useLayoutEffect(() => {
+    if (token == undefined) {
+      window.location.href = "https://sallaplus.com/login";
+    }
+  }, [token]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
