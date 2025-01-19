@@ -126,7 +126,7 @@ const AddNewPhotoModal = ({ isColumn, product, setUpdatedProduct }) => {
             {product.photoes?.map((image, index) => (
               <div key={index} className="uploaded-image">
                 <img
-                  src={`https://salla1-001-site1.anytempurl.com/${image}`}
+                  src={`https://salla111-001-site1.ptempurl.com/${image}`}
                   alt={`Uploaded ${index + 1}`}
                 />
               </div>

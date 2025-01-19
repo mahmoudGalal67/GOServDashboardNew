@@ -3,10 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import "../../ProductCard.css";
 import "../../ProductsRow.css";
 
-const ProductNotificationModal = ({ isColumn }) => {
-  const [productAmount, setProductAmount] = useState(0);
-  const [thresholdAmount, setThresholdAmount] = useState(15);
-  const [notifyPercentage, setNotifyPercentage] = useState(100);
+const ProductNotificationModal = ({ isColumn, product, setUpdatedProduct }) => {
   const [showProductNotificationModal, setProductNotificationModal] =
     useState(false);
   const handleProductNotificationModalClose = () =>
@@ -18,16 +15,60 @@ const ProductNotificationModal = ({ isColumn }) => {
     handleProductNotificationModalClose();
   };
 
+  const handleInputChange = (type, value, name, deep, lang) => {
+    if (deep) {
+      if (lang) {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          productDetailDto: [
+            {
+              ...prev[type][0],
+              [name + "_en"]: value,
+              [name + "_ar"]: value,
+            },
+          ],
+        }));
+      } else {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          productDetailDto: [
+            {
+              ...prev[type][0],
+              [name]: value,
+            },
+          ],
+        }));
+      }
+    } else {
+      if (lang) {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          [name + "_en"]: value,
+          [name + "_ar"]: value,
+        }));
+      } else {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
+    }
+  };
+
   return (
     <>
       {isColumn ? (
-        <div className="icon-1" onClick={handleProductNotificationModalShow} style={{cursor:"pointer"}}>
+        <div
+          className="icon-1"
+          onClick={handleProductNotificationModalShow}
+          style={{ cursor: "pointer" }}
+        >
           <i className="sicon-bell-time"></i>
         </div>
       ) : (
         <div
           className="icon-1"
-          style={{ marginTop: "10px", padding: "0 8px" ,cursor:"pointer"}}
+          style={{ marginTop: "10px", padding: "0 8px", cursor: "pointer" }}
           onClick={handleProductNotificationModalShow}
         >
           <i className="sicon-bell-time" style={{ color: "#aaa" }}></i>
@@ -61,11 +102,21 @@ const ProductNotificationModal = ({ isColumn }) => {
               </Form.Text>
 
               <div className="input-container">
-                <button style={{borderRight:"1px solid #ddd"}}>
+                <button style={{ borderRight: "1px solid #ddd" }}>
                   <i className="bg-white text-black">قطعة</i>
                 </button>
                 <input
                   type="text"
+                  value={product?.alertsDto[0].amount}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "alertsDto",
+                      e.target.value,
+                      "amount",
+                      true,
+                      false
+                    )
+                  }
                   className="text-input"
                   placeholder="0"
                 />
@@ -87,11 +138,21 @@ const ProductNotificationModal = ({ isColumn }) => {
                 للعملاء، القيمة الافتراضية 15
               </Form.Text>
               <div className="input-container">
-                <button style={{borderRight:"1px solid #ddd"}}>
+                <button style={{ borderRight: "1px solid #ddd" }}>
                   <i className="bg-white text-black">قطعة</i>
                 </button>
                 <input
                   type="text"
+                  value={product?.alertsDto[0].amount_of_clients}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "alertsDto",
+                      e.target.value,
+                      "amount_of_clients",
+                      true,
+                      false
+                    )
+                  }
                   className="text-input"
                   placeholder="15"
                 />
@@ -109,11 +170,21 @@ const ProductNotificationModal = ({ isColumn }) => {
                 "أعلمني عند التوفر". عدد العملاء المشتركين الآن 0 عملاء.
               </Form.Text>
               <div className="input-container">
-                <button style={{borderRight:"1px solid #ddd"}}>
+                <button style={{ borderRight: "1px solid #ddd" }}>
                   <i className="bg-white text-black">%</i>
                 </button>
                 <input
                   type="text"
+                  value={product?.alertsDto[0].percentt}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "alertsDto",
+                      e.target.value,
+                      "percentt",
+                      true,
+                      false
+                    )
+                  }
                   className="text-input"
                   placeholder="100"
                 />
@@ -126,7 +197,7 @@ const ProductNotificationModal = ({ isColumn }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button
+          <Button
             variant="secondary"
             onClick={handleSave}
             className="save-btn-options"

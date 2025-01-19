@@ -181,7 +181,7 @@ const CategoryModal = ({ isColumn, setbrands, categoryId }) => {
                 <img
                   style={{ width: "100%" }}
                   src={
-                    file && `https://salla1-001-site1.anytempurl.com/${file}`
+                    file && `https://salla111-001-site1.ptempurl.com/${file}`
                   }
                 />
               </div>

@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../ProductCard.css";
 import "../../ProductsRow.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Button, Form } from "react-bootstrap";
 
+import { useCookies } from "react-cookie";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
+import { Request } from "../../../../../components/utils/Request";
 
-const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
+const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
+  const [tradeMarks, settradeMarks] = useState([]);
+  const [cookies, setCookie] = useCookies(["userusertoken"]);
+
   const modules = {
     // #3 Add "image" to the toolbar
     toolbar: [
@@ -25,24 +31,61 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
     ],
   };
 
-  const handleInputChange = (value, name, lang) => {
-    if (name == "details") {
-      setUpdatedProduct((prev) => ({
-        ...prev,
-        productDetailDto: [
-          {
-            ...prev.productDetailDto[0],
-            [name + "_en"]: value,
-            [name + "_ar"]: value,
+  useEffect(() => {
+    const getTradeMarks = async () => {
+      try {
+        const { data } = await Request({
+          url: `/GetallTrade_marks?bid=${brand}`,
+          headers: {
+            Authorization: `Bearer ${cookies.usertoken}`,
           },
-        ],
-      }));
+        });
+        settradeMarks(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTradeMarks();
+  }, [brand]);
+
+  const handleInputChange = (type, value, name, deep, lang) => {
+    if (deep) {
+      if (lang) {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          productDetailDto: [
+            {
+              ...prev[type][0],
+              [name + "_en"]: value,
+              [name + "_ar"]: value,
+            },
+          ],
+        }));
+      } else {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          productDetailDto: [
+            {
+              ...prev[type][0],
+              [name]: value,
+            },
+          ],
+        }));
+      }
+    } else {
+      if (lang) {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          [name + "_en"]: value,
+          [name + "_ar"]: value,
+        }));
+      } else {
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
     }
-    setUpdatedProduct((prev) => ({
-      ...prev,
-      [name + "_en"]: value,
-      [name + "_ar"]: value,
-    }));
   };
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
@@ -199,6 +242,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                   <input
                     type="text"
                     placeholder="سعر التكلفة"
+                    value={product?.productDetailDto[0].cost_price}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "productDetailDto",
+                        e.target.value,
+                        "cost_price",
+                        true,
+                        false
+                      )
+                    }
                     style={{
                       border: "none",
                       marginRight: "5px",
@@ -223,6 +276,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="السعر المخفض"
+                      value={product?.productDetailDto[0].price_after_discount}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "price_after_discount",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         padding: "0px",
@@ -242,8 +305,18 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                       style={{ color: "#aaa", marginTop: "5px" }}
                     ></i>
                     <input
-                      type="text"
+                      type="date"
                       placeholder="نهاية التخفيض (اختباري)"
+                      value={product?.productDetailDto[0].end_discount_date}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "end_discount_date",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         padding: "0px",
@@ -269,6 +342,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="SUK رمز التخزين"
+                      value={product?.productDetailDto[0].store_code}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "store_code",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         padding: "0px",
@@ -289,6 +372,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="GTIN"
+                      value={product?.productDetailDto[0].gtin}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "gtin",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         padding: "0px",
@@ -308,6 +401,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="MPN"
+                      value={product?.productDetailDto[0].mpn}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "mpn",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         padding: "0px",
@@ -338,13 +441,34 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     style={{ color: "#aaa" }}
                   ></i>
                   <select
+                    onChange={(e) =>
+                      handleInputChange(
+                        "productDetailDto",
+                        e.target.value,
+                        "trade_mark",
+                        true,
+                        false
+                      )
+                    }
                     style={{
                       border: "none",
                       marginRight: "0px",
                       padding: "0px",
                     }}
                   >
-                    <option>البحث عن الماركة</option>
+                    <option disabled>البحث عن الماركة</option>
+                    {tradeMarks.map((tradeMark) => (
+                      <option
+                        key={tradeMark.trade_mark_id}
+                        value={tradeMark.trade_mark_name_ar}
+                        selected={
+                          tradeMark.trade_mark_name_ar ==
+                          product?.productDetailDto[0].trade_mark
+                        }
+                      >
+                        {tradeMark.trade_mark_name_ar}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -371,6 +495,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="العنوان الفرعي"
+                      value={product?.productDetailDto[0].second_address}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "productDetailDto",
+                          e.target.value,
+                          "second_address",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         marginRight: "5px",
@@ -412,6 +546,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                   <input
                     type="text"
                     placeholder="العنوان الترويجي"
+                    value={product?.productDetailDto[0].ads_address}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "productDetailDto",
+                        e.target.value,
+                        "ads_address",
+                        true,
+                        false
+                      )
+                    }
                     style={{
                       border: "none",
                       marginRight: "5px",
@@ -529,9 +673,15 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                   <input
                     type="text"
                     placeholder=" وصف المنتج"
-                    value={product?.description_en}
+                    value={product?.description_ar}
                     onChange={(e) =>
-                      handleInputChange(e.target.value, "description", true)
+                      handleInputChange(
+                        "null",
+                        e.target.value,
+                        "description",
+                        false,
+                        true
+                      )
                     }
                     style={{
                       border: "none",
@@ -544,8 +694,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
               <div className="form-group" style={{ marginRight: "43px" }}>
                 <ReactQuill
                   modules={modules}
-                  value={product?.productDetailDto[0].details_en}
-                  onChange={(e) => handleInputChange(e, "details", true)}
+                  value={product?.productDetailDto[0].details_ar}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "productDetailDto",
+                      e,
+                      "details",
+                      true,
+                      true
+                    )
+                  }
                   placeholder="تفاصيل المنتج"
                   style={{
                     width: "calc(98% - 50px)",
@@ -589,6 +747,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                   ></i>
                   <input
                     type="text"
+                    value={product?.productDetailDto[0].tags}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "productDetailDto",
+                        e.target.value,
+                        "tags",
+                        true,
+                        false
+                      )
+                    }
                     className="text-input"
                     placeholder=" ادخل الوسيم هنا ,ثم اضغط زر اضافة او اضغط Enter"
                   />
@@ -647,6 +815,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="عنوان صفحة المنتج"
+                      value={product?.seo_detailsDto[0].page_title}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "seo_detailsDto",
+                          e.target.value,
+                          "page_title",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                       }}
@@ -685,6 +863,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     <input
                       type="text"
                       placeholder="رابط صفحة المنتج"
+                      value={product?.seo_detailsDto[0].seo_page_url}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "seo_detailsDto",
+                          e.target.value,
+                          "seo_page_url",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                       }}
@@ -726,6 +914,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct }) => {
                     ></i>
                     <textarea
                       placeholder="وصف صفحة المنتج"
+                      value={product?.seo_detailsDto[0].page_description}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "seo_detailsDto",
+                          e.target.value,
+                          "page_description",
+                          true,
+                          false
+                        )
+                      }
                       style={{
                         border: "none",
                         height: "100px",

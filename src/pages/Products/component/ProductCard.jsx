@@ -166,7 +166,6 @@ const ProductCard = ({
       }));
     }
   };
-
   return (
     <>
       <div className="product-container">
@@ -176,7 +175,7 @@ const ProductCard = ({
               src={
                 !updatedProduct.updated && updatedProduct.form
                   ? updatedProduct.firstPhoto
-                  : `https://salla1-001-site1.anytempurl.com/${updatedProduct.photoes[0]}`
+                  : `https://salla111-001-site1.ptempurl.com/${updatedProduct.photoes[0]}`
               }
               alt=""
             />
@@ -271,6 +270,7 @@ const ProductCard = ({
               <ProductNotificationModal
                 isColumn={true}
                 setUpdatedProduct={setUpdatedProduct}
+                product={updatedProduct}
               />
 
               <div className="icon-2" style={{ position: "relative" }}>
@@ -341,14 +341,15 @@ const ProductCard = ({
                 isColumn={true}
                 product={updatedProduct}
                 setUpdatedProduct={setUpdatedProduct}
+                brand={Productbrand}
               />
               <div className="selectDetailsClass">
                 <select name="" placeholder="اختر تصنيف المنتج">
-                  <option value="">المزيد</option>
-                  <option value="">الشتاء (مخفي)</option>
-                  <option value="">الصيف (مخفي)</option>
-                  <option value="">الربيع (مخفي)</option>
-                  <option value="">كفر جوال هدية</option>
+                  {updatedProduct.moreDto.map((item) => (
+                    <option key={item.more_id} value={item.more_id}>
+                      {item.more_ar}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

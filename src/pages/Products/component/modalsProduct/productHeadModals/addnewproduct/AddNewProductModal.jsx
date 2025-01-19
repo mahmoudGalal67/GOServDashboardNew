@@ -31,67 +31,84 @@ const AddNewProductModal = () => {
       firstPhoto:
         "https://cdn.assets.salla.network/prod/admin/cp/assets/images/placeholder.png",
       form: true,
+      product_colors: [
+        {
+          product_colors_id: 0,
+          color_name: null,
+          price: 0,
+          hex_code: null,
+          photoes: [],
+          product_color_sizes: [
+            {
+              size: [],
+              price: [],
+              cost: [],
+              quantity: [],
+            },
+          ],
+        },
+      ],
       productDetailDto: [
         {
-          cost_price: 0,
-          price: 0,
-          price_after_discount: 0,
-          end_discount_date: "string",
-          store_code: "string",
-          gtin: "string",
-          mpn: "string",
-          trade_mark: "string",
-          second_address: "string",
-          ads_address: "string",
-          discount: 0,
-          percent: 0,
-          amount_options: "string",
-          product_view_channels: "string",
+          cost_price: null,
+          price: null,
+          price_after_discount: null,
+          end_discount_date: null,
+          store_code: null,
+          gtin: null,
+          mpn: null,
+          trade_mark: null,
+          second_address: null,
+          ads_address: null,
+          discount: null,
+          percent: null,
+          amount_options: null,
+          product_view_channels: null,
           file_attach: true,
           write_note: true,
           under_taxes: true,
-          product_status: "string",
-          details_en: "string",
-          details_ar: "string",
-          weight: 0,
-          tags: "string",
+          product_status: null,
+          details_en: null,
+          details_ar: null,
+          weight: null,
+          tags: null,
         },
       ],
       alertsDto: [
         {
-          amount: 0,
-          amount_of_clients: 0,
-          percentt: 0,
+          amount: null,
+          amount_of_clients: null,
+          percentt: null,
         },
       ],
       attached_filesDto: [
         {
-          attached_file_name: "string",
-          attached_file_details: "string",
+          attached_file_name: null,
+          attached_file_details: null,
         },
       ],
       seo_detailsDto: [
         {
-          page_title: "string",
-          seo_page_url: "string",
-          page_description: "string",
-          netflix_link: "string",
+          page_title: null,
+          seo_page_url: null,
+          page_description: null,
+          netflix_link: null,
         },
       ],
       product_statusDto: [
         {
-          product_status_en: "string",
-          product_status_ar: "string",
-          product_status_details_ar: "string",
-          product_status_details_en: "string",
+          product_status_en: null,
+          product_status_ar: null,
+          product_status_details_ar: null,
+          product_status_details_en: null,
         },
       ],
       moreDto: [
         {
-          more_en: "string",
+          more_en: null,
           more_ar: "string",
-          more_details_ar: "string",
-          more_details_en: "string",
+          more_details_ar: null,
+          more_details_en: null,
         },
       ],
     };
@@ -149,7 +166,7 @@ const AddNewProductModal = () => {
                 onClick={() => handleAddProduct(item)}
               >
                 <h6> {item.category_name_ar}</h6>
-                <p> {item.details_en}</p>
+                <p> {item.details_ar}</p>
               </div>
               <div className="icon-container-drop">
                 <i className="sicon-packed-box"></i>

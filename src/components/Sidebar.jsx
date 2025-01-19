@@ -34,7 +34,7 @@ const Sidebar = ({ userInfo }) => {
         style={{
           position: "fixed",
           top: "10px",
-          right: "10px", // Adjust the button position based on the sidebar state
+          right: "10px",
           zIndex: 100000000000,
           background: "#067DD3",
           color: "#fff",
@@ -78,7 +78,6 @@ const Sidebar = ({ userInfo }) => {
                 backgroundColor: "#f9c02e",
                 color: "#271c01",
                 borderRadius: "20px",
-                //   width:'fit-content !important',
                 height: "21.5px",
                 fontSize: "12px",
                 lineHeight: "12px",
@@ -117,7 +116,6 @@ const Sidebar = ({ userInfo }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            //   gap: "10px",
             overflow: "hidden",
           }}
         >
@@ -131,7 +129,13 @@ const Sidebar = ({ userInfo }) => {
               fontSize: "12px",
             }}
           >
-            <a href="https://theme.sallaplus.com/"> زياره المتجر</a>
+            <a
+              href={`https://theme.sallaplus.com?id=${userInfo.userId}`}
+              target="_blank"
+            >
+              {" "}
+              زياره المتجر
+            </a>
             <IoIosArrowBack />
           </p>
           {/* share icon */}
