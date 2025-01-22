@@ -8,7 +8,7 @@ import ServiceModal from "./modalsProduct/productHeadModals/service/ServiceModal
 import { useCookies } from "react-cookie";
 import { Request } from "../../../components/utils/Request";
 
-const ProductHead = ({ setbrand }) => {
+const ProductHead = ({ activeBrand }) => {
   const [categories, setcategories] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
 
@@ -33,11 +33,11 @@ const ProductHead = ({ setbrand }) => {
   return (
     <div className="header-container">
       <div className="header-right" style={{ marginRight: "-20px" }}>
-        <AddNewProductModal setbrand={setbrand} categories={categories} />
+        <AddNewProductModal categories={categories} />
       </div>
       <div className="header-left">
         <FilterModal />
-        <ServiceModal setcategories={setcategories} />
+        <ServiceModal setcategories={setcategories} activeBrand={activeBrand} />
       </div>
     </div>
   );

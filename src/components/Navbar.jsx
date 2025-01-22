@@ -11,7 +11,6 @@ import Profileropdown from "./Profileropdown";
 import Tooltip from "./Tooltip";
 
 const Navbar = ({ darkMode, setDarkMode, userInfo }) => {
-  console.log(userInfo);
   return (
     <div
       className={`navBar fixed top-0 left-0 flex-wrap  lg:flex-nowrap ${

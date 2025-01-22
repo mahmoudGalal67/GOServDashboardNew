@@ -14,8 +14,6 @@ import Navbar from "../components/Navbar";
 import Helper from "../components/Helper";
 
 const Home = ({ darkMode, setDarkMode, userInfo }) => {
-  console.log(userInfo);
-
   return (
     <div
       className={`flex flex-wrap' ${darkMode ? "dark" : ""}`}

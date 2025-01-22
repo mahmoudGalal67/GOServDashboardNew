@@ -44,18 +44,19 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const name =
-      params.get("name") || JSON.parse(localStorage.getItem("userInfo")).name;
+      params.get("name") || JSON.parse(localStorage.getItem("userInfo"))?.name;
     const email =
-      params.get("email") || JSON.parse(localStorage.getItem("userInfo")).email;
+      params.get("email") ||
+      JSON.parse(localStorage.getItem("userInfo"))?.email;
     const mobile =
       params.get("mobile") ||
-      JSON.parse(localStorage.getItem("userInfo")).mobile;
+      JSON.parse(localStorage.getItem("userInfo"))?.mobile;
     const userId =
       params.get("userId") ||
-      JSON.parse(localStorage.getItem("userInfo")).userId;
+      JSON.parse(localStorage.getItem("userInfo"))?.userId;
     const userPhoto =
       params.get("userPhoto") ||
-      JSON.parse(localStorage.getItem("userInfo")).userPhoto;
+      JSON.parse(localStorage.getItem("userInfo"))?.userPhoto;
     localStorage.setItem(
       "userInfo",
       JSON.stringify({ name, mobile, userId, userPhoto, email })

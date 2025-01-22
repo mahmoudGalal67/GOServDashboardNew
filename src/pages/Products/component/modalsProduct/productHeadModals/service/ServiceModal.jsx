@@ -4,8 +4,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 import "../../../ProductHead.css";
 
 import AddCategoryModla from "./AddCategoryModal";
+import AddTradeMarkModal from "./AddTrademarkModal";
 
-const ServiceModal = ({ setcategories }) => {
+const ServiceModal = ({ setcategories, activeBrand }) => {
   const [showServiceModal, setShowServiceModal] = useState(false);
 
   const handleShowServiceModal = () => setShowServiceModal(true);
@@ -14,6 +15,10 @@ const ServiceModal = ({ setcategories }) => {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const handleCategoryModalClose = () => setShowCategoryModal(false);
   const handleCategoryModalShow = () => setShowCategoryModal(true);
+
+  const [ShowTradeMark, setShowTrademark] = useState(false);
+  const handleTradeMarkModalClose = () => setShowTrademark(false);
+  const handleTradeMarkModalShow = () => setShowTrademark(true);
 
   const [showImportDropdown, setShowImportDropdown] = useState(false);
 
@@ -64,7 +69,10 @@ const ServiceModal = ({ setcategories }) => {
               <i className="sicon-filter"></i>
             </div>
           </div>
-          <div className="dropdown-item-service">
+          <div
+            className="dropdown-item-service"
+            onClick={handleTradeMarkModalShow}
+          >
             <div className="text-container-service">
               <p>المعارض التجارية</p>
             </div>
@@ -193,6 +201,12 @@ const ServiceModal = ({ setcategories }) => {
         handleCategoryModalClose={handleCategoryModalClose}
         showCategoryModal={showCategoryModal}
         setcategories={setcategories}
+      />
+      <AddTradeMarkModal
+        handleTradeMarkModalClose={handleTradeMarkModalClose}
+        ShowTradeMark={ShowTradeMark}
+        setcategories={setcategories}
+        activeBrand={activeBrand}
       />
     </>
   );

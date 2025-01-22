@@ -42,9 +42,12 @@ const ProductCard = ({
   productCategory,
   setbrands,
   brands,
+  activeBrand,
+  setactiveBrand,
 }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
-  const [Productbrand, setProductbrand] = useState(productBrand);
+
+  let currentBrand = activeBrand || productBrand;
 
   const [cookies, setCookie] = useCookies(["usertoken"]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
@@ -84,7 +87,7 @@ const ProductCard = ({
       type: "deleteProduct",
       payload: {
         categoryId: productCategory,
-        brandId: Productbrand,
+        brandId: currentBrand,
         product_id: id,
       },
     });
@@ -97,7 +100,7 @@ const ProductCard = ({
       !productData.product_name_ar ||
       !productData.photoes ||
       productData.price == "" ||
-      !Productbrand
+      !currentBrand
     ) {
       toast.warn("please add all fields ");
       return;
@@ -122,8 +125,8 @@ const ProductCard = ({
       const { data } = await Request({
         url:
           updatedProduct.product_id != 0
-            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${Productbrand}&trademarkid=2`
-            : `/api/Product_details/add?cat_id=${productCategory}&bid=${Productbrand}&userid=${currentUser}&trade_mark_id=2`,
+            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${currentBrand}&trademarkid=2`
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${currentBrand}&userid=${currentUser}&trade_mark_id=2`,
         method: updatedProduct.product_id != 0 ? "PUT" : "POST",
         data: {
           ...updatedProduct,
@@ -140,7 +143,7 @@ const ProductCard = ({
         payload: {
           ...data[0],
           categoryId: productCategory,
-          brandId: Productbrand,
+          brandId: currentBrand,
         },
       });
     } catch (error) {
@@ -313,14 +316,14 @@ const ProductCard = ({
               <div className="selectClassificationClass">
                 <select
                   name="category"
-                  onChange={(e) => setProductbrand(e.target.value)}
+                  onChange={(e) => setactiveBrand(e.target.value)}
                 >
                   <option disabled>Choose Product Brand</option>
                   {brands.map((brand) => (
                     <option
                       key={brand.brand_id}
                       value={brand.brand_id}
-                      selected={brand.brand_id == Productbrand}
+                      selected={brand.brand_id == currentBrand}
                     >
                       {brand.brand_name}
                     </option>
@@ -339,7 +342,7 @@ const ProductCard = ({
                 isColumn={true}
                 product={updatedProduct}
                 setUpdatedProduct={setUpdatedProduct}
-                brand={Productbrand}
+                brand={currentBrand}
               />
               <div className="selectDetailsClass">
                 <select name="" placeholder="اختر تصنيف المنتج">

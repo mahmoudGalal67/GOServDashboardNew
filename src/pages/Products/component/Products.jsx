@@ -6,7 +6,7 @@ import { Request } from "../../../components/utils/Request";
 import { useCookies } from "react-cookie";
 
 // Category Component
-const Category = ({ category }) => {
+const Category = ({ category, setactiveBrand, activeBrand }) => {
   const [brands, setbrands] = useState([]);
   const [cookies, setCookie] = useCookies(["userusertoken"]);
 
@@ -49,6 +49,8 @@ const Category = ({ category }) => {
                       setbrands={setbrands}
                       productBrand={brand.brand_id}
                       productCategory={category.category_id}
+                      setactiveBrand={setactiveBrand}
+                      activeBrand={activeBrand}
                     />
                   );
                 })}
@@ -62,14 +64,20 @@ const Category = ({ category }) => {
 };
 // Category Component
 
-const ProductList = () => {
+const ProductList = ({ setactiveBrand, activeBrand }) => {
   const { products } = useContext(ProductContext);
 
   return (
     <>
       {products.map((category, i) => {
         return (
-          <Category key={category.category_id} i={i} category={category} />
+          <Category
+            setactiveBrand={setactiveBrand}
+            activeBrand={activeBrand}
+            key={category.category_id}
+            i={i}
+            category={category}
+          />
         );
       })}
     </>
