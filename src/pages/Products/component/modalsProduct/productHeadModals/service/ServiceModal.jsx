@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
-import '../../../ProductHead.css';
+import "../../../ProductHead.css";
 
-const ServiceModal = () => {
+import AddCategoryModla from "./AddCategoryModal";
+
+const ServiceModal = ({ setcategories }) => {
   const [showServiceModal, setShowServiceModal] = useState(false);
 
   const handleShowServiceModal = () => setShowServiceModal(true);
   const handleCloseServiceModal = () => setShowServiceModal(false);
+
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const handleCategoryModalClose = () => setShowCategoryModal(false);
+  const handleCategoryModalShow = () => setShowCategoryModal(true);
 
   const [showImportDropdown, setShowImportDropdown] = useState(false);
 
@@ -39,7 +45,10 @@ const ServiceModal = () => {
         dialogClassName="left-aligned-service"
       >
         <Modal.Body>
-          <div className="dropdown-item-service">
+          <div
+            className="dropdown-item-service"
+            onClick={handleCategoryModalShow}
+          >
             <div className="text-container-service">
               <p>تصنيفات المنتجات</p>
             </div>
@@ -180,6 +189,11 @@ const ServiceModal = () => {
           </div>
         </Modal.Body>
       </Modal>
+      <AddCategoryModla
+        handleCategoryModalClose={handleCategoryModalClose}
+        showCategoryModal={showCategoryModal}
+        setcategories={setcategories}
+      />
     </>
   );
 };

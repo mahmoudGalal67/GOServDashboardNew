@@ -5,22 +5,15 @@ import Readymadetemplates from "./Readymadetemplates";
 import { ProductContext } from "../../../../../../components/context/Product";
 import { Request } from "../../../../../../components/utils/Request";
 
-import { useCookies } from "react-cookie";
-
-const AddNewProductModal = () => {
+const AddNewProductModal = ({ categories }) => {
   const { dispatch } = useContext(ProductContext);
-
-  const [categories, setcategories] = useState([]);
 
   const [showAddProductModal, setshowAddProductModal] = useState(false);
 
   const handleShowModal = () => setshowAddProductModal(true);
   const handleCloseModal = () => setshowAddProductModal(false);
 
-  const [cookies, setCookie] = useCookies(["userusertoken"]);
   const [activeCategory, setactiveCategory] = useState(null);
-
-  const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
 
   const handleAddProduct = (category) => {
     setactiveCategory(category.category_id);
@@ -38,14 +31,10 @@ const AddNewProductModal = () => {
           price: 0,
           hex_code: null,
           photoes: [],
-          product_color_sizes: [
-            {
-              size: [],
-              price: [],
-              cost: [],
-              quantity: [],
-            },
-          ],
+          size: [],
+          size_price: [],
+          cost: [],
+          quantity: [],
         },
       ],
       productDetailDto: [
@@ -111,6 +100,23 @@ const AddNewProductModal = () => {
           more_details_en: null,
         },
       ],
+      trade_marksDto: [
+        {
+          trade_mark_id: 0,
+          trade_mark_name_en: "string",
+          trade_mark_name_ar: "string",
+          trade_mark_details_en: "string",
+          trade_mark_details_ar: "string",
+        },
+      ],
+      ratingDto: [
+        {
+          rating_id: 0,
+          rating_number: 0,
+          rating_comment: "string",
+          userId: 0,
+        },
+      ],
     };
     dispatch({ type: "addProducrForm", payload: { ...newProductData } });
 
@@ -120,23 +126,6 @@ const AddNewProductModal = () => {
   const closeAddProductWhenTemplateOpens = () => {
     handleCloseModal();
   };
-
-  useEffect(() => {
-    const getcategories = async () => {
-      try {
-        const { data } = await Request({
-          url: `/Getallcategories?userid=${currentUser}`,
-          headers: {
-            Authorization: `Bearer ${cookies.usertoken}`,
-          },
-        });
-        setcategories(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getcategories();
-  }, []);
 
   return (
     <>

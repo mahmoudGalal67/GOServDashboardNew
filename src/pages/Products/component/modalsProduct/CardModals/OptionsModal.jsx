@@ -22,16 +22,12 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
   const optionListData = {
     color_name: "",
     hex_code: "",
-    photoes: [],
     price: 0,
-    product_color_sizes: [
-      {
-        size: [],
-        price: [],
-        cost: ["1"],
-        quantity: [],
-      },
-    ],
+    photoes: [],
+    size: [],
+    size_price: [],
+    cost: ["1"],
+    quantity: [],
   };
 
   const [optionList, setOptionList] = useState();
@@ -83,17 +79,13 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
 
   const handleOptionChange = (e, index, name) => {
     let newoptions;
-    if (name == "size" || name == "price" || name == "quantity") {
+    if (name == "size" || name == "size_price" || name == "quantity") {
       newoptions = optionList.map((item, i) => {
         if (i == index) {
           return {
             ...item,
-            product_color_sizes: [
-              {
-                ...item.product_color_sizes[0],
-                [name]: e.target.value.split(","),
-              },
-            ],
+
+            [name]: e.target.value.split(","),
           };
         } else {
           return item;
@@ -330,9 +322,7 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
                               <input
                                 type="text"
                                 placeholder="المقاسات"
-                                value={option.product_color_sizes[0].size.join(
-                                  ", "
-                                )}
+                                value={option.size.join(", ")}
                                 onChange={(e) =>
                                   handleOptionChange(e, i, "size")
                                 }
@@ -359,11 +349,9 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
                               <input
                                 type="text"
                                 placeholder="الاسعار"
-                                value={option.product_color_sizes[0].price.join(
-                                  ", "
-                                )}
+                                value={option.size_price.join(", ")}
                                 onChange={(e) =>
-                                  handleOptionChange(e, i, "price")
+                                  handleOptionChange(e, i, "size_price")
                                 }
                                 required
                               />
@@ -389,9 +377,7 @@ const OptionsModal = ({ isColumn, product, setUpdatedProduct }) => {
                                 type="text"
                                 placeholder="الكمية"
                                 name="quantity"
-                                value={option.product_color_sizes[0].quantity.join(
-                                  ", "
-                                )}
+                                value={option.quantity.join(", ")}
                                 onChange={(e) =>
                                   handleOptionChange(e, i, "quantity")
                                 }

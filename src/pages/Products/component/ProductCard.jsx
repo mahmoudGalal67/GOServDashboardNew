@@ -103,19 +103,17 @@ const ProductCard = ({
       return;
     }
     if (!unlimited && productData.product_colors) {
-      for (const item of productData.product_colors) {
-        if (
-          item.color_name == "" ||
-          item.hex_code == "" ||
-          item.photoes.length == 0 ||
-          item.product_color_sizes.size == [] ||
-          item.product_color_sizes.price == [] ||
-          item.product_color_sizes.quantity == []
-        ) {
-          toast.warn("please add all fields");
+      if (
+        productData.color_name == "" ||
+        productData.hex_code == "" ||
+        productData.photoes.length == 0 ||
+        productData.size == [] ||
+        productData.size_price == [] ||
+        productData.quantity == []
+      ) {
+        toast.warn("please add all fields");
 
-          return;
-        }
+        return;
       }
     }
 
