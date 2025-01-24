@@ -42,16 +42,13 @@ const ProductCard = ({
   productCategory,
   setbrands,
   brands,
-  activeBrand,
-  setactiveBrand,
 }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
-
-  let currentBrand = activeBrand || productBrand;
+  const [currentBrand, setcurrentBrand] = useState(productBrand);
+  const [currentTrademark, setcurrentTrademark] = useState(null);
 
   const [cookies, setCookie] = useCookies(["usertoken"]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
-
   const override = {
     position: "absolute",
     inset: "50%",
@@ -96,6 +93,10 @@ const ProductCard = ({
   const handleProductSubmit = async () => {
     let productData = JSON.parse(JSON.stringify(updatedProduct));
 
+    if (!currentTrademark) {
+      toast.warn("please add Product Trde mark");
+      return;
+    }
     if (
       !productData.product_name_ar ||
       !productData.photoes ||
@@ -125,8 +126,8 @@ const ProductCard = ({
       const { data } = await Request({
         url:
           updatedProduct.product_id != 0
-            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${currentBrand}&trademarkid=2`
-            : `/api/Product_details/add?cat_id=${productCategory}&bid=${currentBrand}&userid=${currentUser}&trade_mark_id=2`,
+            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${currentBrand}&trademarkid=${currentTrademark}`
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${currentBrand}&userid=${currentUser}&trade_mark_id=${currentTrademark}`,
         method: updatedProduct.product_id != 0 ? "PUT" : "POST",
         data: {
           ...updatedProduct,
@@ -316,7 +317,7 @@ const ProductCard = ({
               <div className="selectClassificationClass">
                 <select
                   name="category"
-                  onChange={(e) => setactiveBrand(e.target.value)}
+                  onChange={(e) => setcurrentBrand(e.target.value)}
                 >
                   <option disabled>Choose Product Brand</option>
                   {brands.map((brand) => (
@@ -343,6 +344,7 @@ const ProductCard = ({
                 product={updatedProduct}
                 setUpdatedProduct={setUpdatedProduct}
                 brand={currentBrand}
+                setcurrentTrademark={setcurrentTrademark}
               />
               <div className="selectDetailsClass">
                 <select name="" placeholder="اختر تصنيف المنتج">

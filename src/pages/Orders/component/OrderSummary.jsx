@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./OrderSummary.css";
 import { Modal, Form } from "react-bootstrap";
+import Orders from "../Orders";
 
-const OrderSummary = ({ selectedIndex, showDetails }) => {
+const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
   const data = [
     { title: "جاري التوصيل", count: 0 },
     { title: "تم التنفيذ", count: 0 },
@@ -13,6 +14,8 @@ const OrderSummary = ({ selectedIndex, showDetails }) => {
     { title: "بانتظار الدفع", count: 0 },
     { title: "محذوف", count: 0 },
   ];
+
+  console.log(orders);
 
   const selectedOrder = selectedIndex !== null ? data[selectedIndex] : null;
 
@@ -47,6 +50,14 @@ const OrderSummary = ({ selectedIndex, showDetails }) => {
             disabled
           />
           <h2>الطلبات </h2>
+          {orders.map((order, i) => (
+            <div className="order-info">
+              <span className="order-details" key={i}>
+                {order}
+              </span>
+              <FontAwesomeIcon icon={faTimes} className="order-close-icon" />
+            </div>
+          ))}
           {showDetails && selectedOrder ? (
             <div className="order-info">
               <span className="order-details">

@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import Home from "./pages/Home";
 import ProductsPage from "./pages/Products/ProductsPage";
 import Orders from "./pages/Orders/Orders";
+import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import Clients from "./pages/Clients/Clients";
 import Reports from "./pages/Reports/Reports";
 import Mahally from "./pages/Mahally/Mahally";
@@ -91,6 +92,16 @@ function App() {
           path="/orders"
           element={
             <Orders
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
+        />
+        <Route
+          path="/order/:id"
+          element={
+            <OrderDetails
               darkMode={darkMode}
               setDarkMode={setDarkMode}
               userInfo={userInfo}

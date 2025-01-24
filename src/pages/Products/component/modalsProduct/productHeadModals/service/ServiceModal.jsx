@@ -6,7 +6,7 @@ import "../../../ProductHead.css";
 import AddCategoryModla from "./AddCategoryModal";
 import AddTradeMarkModal from "./AddTrademarkModal";
 
-const ServiceModal = ({ setcategories, activeBrand }) => {
+const ServiceModal = ({ setcategories, categories }) => {
   const [showServiceModal, setShowServiceModal] = useState(false);
 
   const handleShowServiceModal = () => setShowServiceModal(true);
@@ -205,8 +205,7 @@ const ServiceModal = ({ setcategories, activeBrand }) => {
       <AddTradeMarkModal
         handleTradeMarkModalClose={handleTradeMarkModalClose}
         ShowTradeMark={ShowTradeMark}
-        setcategories={setcategories}
-        activeBrand={activeBrand}
+        categories={categories}
       />
     </>
   );

@@ -8,12 +8,11 @@ import ServiceModal from "./modalsProduct/productHeadModals/service/ServiceModal
 import { useCookies } from "react-cookie";
 import { Request } from "../../../components/utils/Request";
 
-const ProductHead = ({ activeBrand }) => {
+const ProductHead = ({ allProducts }) => {
   const [categories, setcategories] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo"))?.userId;
 
   const [cookies, setCookie] = useCookies(["userusertoken"]);
-
   useEffect(() => {
     const getcategories = async () => {
       try {
@@ -36,8 +35,8 @@ const ProductHead = ({ activeBrand }) => {
         <AddNewProductModal categories={categories} />
       </div>
       <div className="header-left">
-        <FilterModal />
-        <ServiceModal setcategories={setcategories} activeBrand={activeBrand} />
+        <FilterModal allProducts={allProducts} />
+        <ServiceModal categories={categories} />
       </div>
     </div>
   );

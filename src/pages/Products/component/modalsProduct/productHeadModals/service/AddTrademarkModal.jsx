@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../ProductCard.css";
 import "../../../ProductsRow.css";
 import { Modal, Button } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+
+import { toast } from "react-toastify";
 
 import { Request } from "../../../../../../components/utils/Request";
 
 const TrademarkModal = ({
   handleTradeMarkModalClose,
   ShowTradeMark,
-  setTradeMarks,
-  activeBrand,
+  categories,
 }) => {
+  const [activeCategory, setactiveCategory] = useState(null);
+  const [activeBrand, setactiveBrand] = useState("");
+
+  const [Categories, setCategories] = useState(categories);
+  const [brands, setbrands] = useState([]);
+
   const [language, setLanguage] = useState("AR");
   const [trademarkNameAR, settrademarkNameAR] = useState("");
   const [trademarkNameEN, settrademarkNameEN] = useState("");
@@ -60,7 +67,7 @@ const TrademarkModal = ({
           Authorization: `Bearer  ${cookies.usertoken}`,
         },
       });
-      console.log(data);
+
       setfile(data);
       setloading(false);
     } catch (error) {
@@ -68,6 +75,28 @@ const TrademarkModal = ({
       setloading(false);
     }
   };
+
+  useEffect(() => {
+    setCategories(categories);
+    setactiveCategory(categories[0]?.category_id);
+  }, [categories]);
+
+  useEffect(() => {
+    const getbrands = async () => {
+      try {
+        const { data } = await Request({
+          url: `/Getallbrands?catid=${activeCategory}`,
+          headers: {
+            Authorization: `Bearer ${cookies.usertoken}`,
+          },
+        });
+        setbrands(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getbrands();
+  }, [activeCategory]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,10 +120,15 @@ const TrademarkModal = ({
       });
 
       if (response.status === 200 || response.status === 201) {
-        // alert("Brand added successfully");
-        setTradeMarks((prev) => [...prev, response.data[0]]);
+        // setTradeMarks((prev) => [...prev, response.data[0]]);
         handleTradeMarkModalClose();
         setloading(false);
+        settrademarkNameAR("");
+        settrademarkNameEN("");
+        setDetaillsAR("");
+        setDetailsen("");
+        setfile(null);
+        toast.success("you have been added Trade Mark  successfuly");
       }
     } catch (error) {
       console.error("Error adding category", error);
@@ -124,8 +158,51 @@ const TrademarkModal = ({
         </div>
         <Modal.Body>
           <form style={{ direction: "rtl" }}>
+            <div className="selectClassificationClass">
+              <label
+                htmlFor="category"
+                style={{ marginRight: "16px", marginTop: "16px" }}
+              >
+                Choose Trade Mark Category
+              </label>
+              <select
+                name="category"
+                onChange={(e) => setactiveCategory(e.target.value)}
+              >
+                {Categories.map((category) => (
+                  <option
+                    key={category.category_id}
+                    value={category.category_id}
+                  >
+                    {category.category_name_ar}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="selectClassificationClass">
+              <label
+                htmlFor="category"
+                style={{ marginRight: "16px", marginTop: "16px" }}
+              >
+                Choose Trade Mark Brand
+              </label>
+
+              <select
+                name="category"
+                onChange={(e) => setactiveBrand(e.target.value)}
+                required
+              >
+                <option disabled selected>
+                  Choose Trade Mark Brand
+                </option>
+                {brands.map((brand) => (
+                  <option key={brand.brand_id} value={brand.brand_id}>
+                    {brand.brand_name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div>
-              <label style={{ marginRight: "16px" }}>اسم البراند</label>
               <br />
               <div className="field-category ">
                 <div className="InputCategoryClass">

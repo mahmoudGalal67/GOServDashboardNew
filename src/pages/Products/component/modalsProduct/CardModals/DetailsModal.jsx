@@ -11,9 +11,26 @@ import "react-quill/dist/quill.snow.css";
 import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
 import { Request } from "../../../../../components/utils/Request";
 
-const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
+const DetailsModal = ({
+  isColumn,
+  product,
+  setUpdatedProduct,
+  brand,
+  setcurrentTrademark,
+}) => {
   const [tradeMarks, settradeMarks] = useState([]);
   const [cookies, setCookie] = useCookies(["userusertoken"]);
+
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+
+  const handleDetailsModalClose = () => setShowDetailsModal(false);
+  const handleDetailsModalShow = () => setShowDetailsModal(true);
+
+  const [activeButton, setActiveButton] = useState("productDetails");
+
+  const [showCustomFields, setShowCustomFields] = useState(false);
+  const [showProductDetailsSection, setShowProductDetailsSection] =
+    useState(true);
 
   const modules = {
     // #3 Add "image" to the toolbar
@@ -46,7 +63,7 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
       }
     };
     getTradeMarks();
-  }, [brand]);
+  }, [brand, showDetailsModal]);
 
   const handleInputChange = (type, value, name, deep, lang) => {
     if (deep) {
@@ -87,16 +104,6 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
       }
     }
   };
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
-
-  const handleDetailsModalClose = () => setShowDetailsModal(false);
-  const handleDetailsModalShow = () => setShowDetailsModal(true);
-
-  const [activeButton, setActiveButton] = useState("productDetails");
-
-  const [showCustomFields, setShowCustomFields] = useState(false);
-  const [showProductDetailsSection, setShowProductDetailsSection] =
-    useState(true);
 
   const handleCustomFieldsToggle = () => {
     setShowCustomFields(true);
@@ -441,15 +448,16 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
                     style={{ color: "#aaa" }}
                   ></i>
                   <select
-                    onChange={(e) =>
+                    onChange={(e) => {
                       handleInputChange(
                         "productDetailDto",
                         e.target.value,
                         "trade_mark",
                         true,
                         false
-                      )
-                    }
+                      );
+                      setcurrentTrademark(e.target.value);
+                    }}
                     style={{
                       border: "none",
                       marginRight: "0px",
@@ -460,13 +468,13 @@ const DetailsModal = ({ isColumn, product, setUpdatedProduct, brand }) => {
                     {tradeMarks.map((tradeMark) => (
                       <option
                         key={tradeMark.trade_mark_id}
-                        value={tradeMark.trade_mark_name_ar}
+                        value={tradeMark.trade_mark_id}
                         selected={
                           tradeMark.trade_mark_name_ar ==
                           product?.productDetailDto[0].trade_mark
                         }
                       >
-                        {tradeMark.trade_mark_name_ar}
+                        {tradeMark.trade_mark_name_en}
                       </option>
                     ))}
                   </select>

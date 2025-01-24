@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderComponent from "./component/HeaderComponent";
 import RequestHead from "./component/RequestHead";
 import Swiper from "./component/SwiperOrders";
@@ -7,9 +7,35 @@ import Navbar from "../../components/Navbar";
 // import Helper from "../../components/Helper";
 import OrderSummary from "./component/OrderSummary";
 
+import { useCookies } from "react-cookie";
+import { Request } from "../../components/utils/Request";
+
 function Orders({ darkMode, setDarkMode, userInfo }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"));
+
+  const [cookies, setCookie] = useCookies(["usertoken"]);
+
+  const [orders, setorders] = useState([]);
+
+  useEffect(() => {
+    const getorders = async () => {
+      try {
+        const { data } = await Request({
+          url: `/Clients/getorder?userid=${currentUser.userId}`,
+          headers: {
+            Authorization: `Bearer ${cookies.usertoken}`,
+          },
+        });
+        setorders(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getorders();
+  }, []);
 
   const handleCardClick = (index) => {
     if (selectedIndex === index) {
@@ -52,6 +78,7 @@ function Orders({ darkMode, setDarkMode, userInfo }) {
           <OrderSummary
             selectedIndex={selectedIndex}
             showDetails={showDetails}
+            orders={orders}
           />
         </div>
       </main>

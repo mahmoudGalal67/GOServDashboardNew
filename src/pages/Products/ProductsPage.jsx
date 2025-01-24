@@ -13,9 +13,11 @@ import { ProductContext } from "../../components/context/Product";
 import { ToastContainer } from "react-toastify";
 import DotLoader from "react-spinners/DotLoader";
 
+import { productsDummy } from "./dummyProducts";
+
 const ProductsPage = (props) => {
   const { dispatch, products } = useContext(ProductContext);
-  const [activeBrand, setactiveBrand] = useState(null);
+  const [allProducts, setallProducts] = useState([]);
 
   const [loading, setloading] = useState(false);
 
@@ -34,8 +36,9 @@ const ProductsPage = (props) => {
         });
         dispatch({
           type: "fetchProducts",
-          payload: data.slice(0, 10),
+          payload: data,
         });
+        setallProducts(data);
         setloading(false);
       } catch (error) {
         console.log(error);
@@ -72,7 +75,7 @@ const ProductsPage = (props) => {
       >
         <div className="headerComponent" style={{ width: "98%" }}>
           <HeaderComponent />
-          <ProductHead activeBrand={activeBrand} />
+          <ProductHead allProducts={allProducts} />
           {loading ? (
             <DotLoader
               color="#2ffff3"
@@ -81,10 +84,7 @@ const ProductsPage = (props) => {
               loading={loading}
             />
           ) : (
-            <ProductList
-              setactiveBrand={setactiveBrand}
-              activeBrand={activeBrand}
-            />
+            <ProductList />
           )}
         </div>
       </main>
