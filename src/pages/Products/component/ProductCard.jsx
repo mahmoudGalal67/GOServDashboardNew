@@ -93,10 +93,10 @@ const ProductCard = ({
   const handleProductSubmit = async () => {
     let productData = JSON.parse(JSON.stringify(updatedProduct));
 
-    if (!currentTrademark) {
-      toast.warn("please add Product Trde mark");
-      return;
-    }
+    // if (!currentTrademark) {
+    //   toast.warn("please add Product Trde mark");
+    //   return;
+    // }
     if (
       !productData.product_name_ar ||
       !productData.photoes ||
@@ -126,8 +126,10 @@ const ProductCard = ({
       const { data } = await Request({
         url:
           updatedProduct.product_id != 0
-            ? `/api/Product_details/Putprod?id=${product.product_id}&cat_id=${productCategory}&bid=${currentBrand}&trademarkid=${currentTrademark}`
-            : `/api/Product_details/add?cat_id=${productCategory}&bid=${currentBrand}&userid=${currentUser}&trade_mark_id=${currentTrademark}`,
+            ? `/api/Product_details/Putprod?id=${
+                product.product_id
+              }&cat_id=${productCategory}&bid=${currentBrand}&trademarkid=${1}`
+            : `/api/Product_details/add?cat_id=${productCategory}&bid=${currentBrand}&userid=${currentUser}&trade_mark_id=${1}`,
         method: updatedProduct.product_id != 0 ? "PUT" : "POST",
         data: {
           ...updatedProduct,

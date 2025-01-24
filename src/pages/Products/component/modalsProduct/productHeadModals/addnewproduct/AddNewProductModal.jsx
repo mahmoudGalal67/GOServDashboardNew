@@ -9,6 +9,7 @@ const AddNewProductModal = ({ categories }) => {
   const { dispatch } = useContext(ProductContext);
 
   const [showAddProductModal, setshowAddProductModal] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"));
 
   const handleShowModal = () => setshowAddProductModal(true);
   const handleCloseModal = () => setshowAddProductModal(false);
@@ -114,7 +115,13 @@ const AddNewProductModal = ({ categories }) => {
           rating_id: 0,
           rating_number: 0,
           rating_comment: "string",
-          userId: 0,
+          userId: currentUser.userId,
+          usersDto: [
+            {
+              userId: currentUser.userId,
+              name: currentUser.name,
+            },
+          ],
         },
       ],
     };
