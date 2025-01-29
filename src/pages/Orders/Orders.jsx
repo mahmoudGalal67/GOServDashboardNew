@@ -24,7 +24,7 @@ function Orders({ darkMode, setDarkMode, userInfo }) {
     const getorders = async () => {
       try {
         const { data } = await Request({
-          url: `/Clients/getorder?userid=${currentUser.userId}`,
+          url: `/api/Clients/getorder_admin?admin_id=${currentUser.userId}`,
           headers: {
             Authorization: `Bearer ${cookies.usertoken}`,
           },

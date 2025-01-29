@@ -7,6 +7,7 @@ import ProductsPage from "./pages/Products/ProductsPage";
 import Orders from "./pages/Orders/Orders";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import Clients from "./pages/Clients/Clients";
+import ClientDetails from "./pages/ClientDetails/Clients";
 import Reports from "./pages/Reports/Reports";
 import Mahally from "./pages/Mahally/Mahally";
 import Influencers from "./pages/Influencers/Influencers";
@@ -112,6 +113,16 @@ function App() {
           path="/clients"
           element={
             <Clients
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              userInfo={userInfo}
+            />
+          }
+        />
+        <Route
+          path="/client/:id"
+          element={
+            <ClientDetails
               darkMode={darkMode}
               setDarkMode={setDarkMode}
               userInfo={userInfo}

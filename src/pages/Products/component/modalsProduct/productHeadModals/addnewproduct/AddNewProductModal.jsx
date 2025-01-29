@@ -47,7 +47,7 @@ const AddNewProductModal = ({ categories }) => {
           store_code: null,
           gtin: null,
           mpn: null,
-          trade_mark: null,
+          trade_mark: "string",
           second_address: null,
           ads_address: null,
           discount: null,
@@ -95,10 +95,10 @@ const AddNewProductModal = ({ categories }) => {
       ],
       moreDto: [
         {
-          more_en: null,
+          more_en: "string",
           more_ar: "string",
-          more_details_ar: null,
-          more_details_en: null,
+          more_details_ar: "string",
+          more_details_en: "string",
         },
       ],
       trade_marksDto: [
@@ -114,7 +114,7 @@ const AddNewProductModal = ({ categories }) => {
         {
           rating_id: 0,
           rating_number: 0,
-          rating_comment: "string",
+          rating_comment: null,
           userId: currentUser.userId,
           usersDto: [
             {

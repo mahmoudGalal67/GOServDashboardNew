@@ -133,7 +133,6 @@ const Home = ({ darkMode, setDarkMode, userInfo }) => {
             </div>
           </div>
         </section>
-
         <div className="leftsideContainer w-full lg:w-1/3">
           {/* التنبيهات */}
           <aside style={{ height: "430px" }}>

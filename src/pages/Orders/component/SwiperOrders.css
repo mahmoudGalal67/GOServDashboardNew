@@ -60,7 +60,6 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 125px;
 }
 
 .icons-item-class-orders {
@@ -91,6 +90,7 @@ span {
 
 .swiper-item-orders.selected .icon-Class-orders {
   color: blue !important;
+  width: 90%;
 }
 .clear-orders {
   width: 20px;

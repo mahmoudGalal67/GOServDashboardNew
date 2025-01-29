@@ -4,6 +4,7 @@ import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./OrderSummary.css";
 import { Modal, Form } from "react-bootstrap";
 import Orders from "../Orders";
+import { Link } from "react-router-dom";
 
 const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
   const data = [
@@ -50,14 +51,6 @@ const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
             disabled
           />
           <h2>الطلبات </h2>
-          {orders.map((order, i) => (
-            <div className="order-info">
-              <span className="order-details" key={i}>
-                {order}
-              </span>
-              <FontAwesomeIcon icon={faTimes} className="order-close-icon" />
-            </div>
-          ))}
           {showDetails && selectedOrder ? (
             <div className="order-info">
               <span className="order-details">
@@ -71,35 +64,41 @@ const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
           <i className="sicon-magic-wand flip-x"></i> تحرير سريع
         </button>
       </div>
-      <div className="order-item">
-        <div className="order-item-right">
-          <div className="order-actions">
-            <input type="checkbox" className="order-header-checkbox mx-2" />
+      {orders.map((order, i) => (
+        <div className="order-item" key={order.order_id}>
+          <div className="order-item-right">
+            <div className="order-actions">
+              <input type="checkbox" className="order-header-checkbox mx-2" />
+            </div>
+            <div className="order-details">
+              {showDetails && selectedOrder ? (
+                <p style={{ color: "black" }}>لا توجد طلبات محددة</p>
+              ) : (
+                <Link to={`/order/${order.order_id}`}>
+                  <p>
+                    <span> {order.order_id} </span>
+                    <span> عدد المنجات {order.shopping_carddto.length}</span>
+                    <span> </span>
+                  </p>
+                </Link>
+              )}
+            </div>
           </div>
-          <div className="order-details">
-            {showDetails && selectedOrder ? (
-              <p style={{ color: "black" }}>لا توجد طلبات محددة</p>
-            ) : (
-              <p>
-                <span> #128487450 </span>
-                <span> مستعرض الجوال</span>
-                <span> مسودة </span>
-              </p>
-            )}
-          </div>
-        </div>
 
-        {showDetails && selectedOrder ? null : (
-          <div className="order-item-left">
-            <div className="order-item-left-1">
-              <p style={{ color: "black" }}>SAR 0</p>
+          {showDetails && selectedOrder ? null : (
+            <div className="order-item-left">
+              <div className="order-item-left-1">
+                <p style={{ color: "black" }}>
+                  SAR {order.total_amount || order?.shopping_carddto[0]?.price}{" "}
+                </p>
+              </div>
+              <div className="order-item-left-2">
+                <p>منذ اليوم</p>
+              </div>
             </div>
-            <div className="order-item-left-2">
-              <p>منذ اليوم</p>
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      ))}
 
       <Modal
         show={showReleaseModal}

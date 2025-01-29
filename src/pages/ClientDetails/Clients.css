@@ -1,0 +1,116 @@
+.client.container {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+.client-options {
+  border: 1px solid #77c1e3;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.client-options svg {
+  margin-left: 5px;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 45px;
+}
+
+.client-details {
+  max-width: 60%;
+}
+
+.client-details p {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.phone-cover {
+  border: 1px solid #77c1e3;
+  border-radius: 100px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  color: #77c1e3;
+}
+
+.client-contact {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.client-contact a {
+  margin-left: 10px;
+  color: #77c1e3;
+  text-decoration: none;
+}
+
+.client-contact a svg {
+  margin-left: 5px;
+}
+
+.client-image {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.client-image img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+.client.left-aligned-service-release {
+  top: 280px !important;
+}
+
+.modal-dialog.client {
+  max-width: 60% !important;
+}
+
+.modal-header {
+  background-color: #77c1e3;
+  border-bottom: none;
+}
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: none;
+}
+.btn-save {
+  background-color: #77c1e3;
+  color: #fff;
+}
+.btn-close {
+  margin: 0 !important;
+}
+.modal-dialog.client .form-control {
+  background-color: #f8f9fa;
+  border: none;
+  width: 100% !important;
+}
+.modal-dialog.client .form-select {
+  background-color: #f8f9fa;
+  border: none;
+  width: 100% !important;
+}
+
+@media (max-width: 500px) {
+  .modal-dialog.client {
+    max-width: 100% !important;
+  }
+}

@@ -470,8 +470,8 @@ const DetailsModal = ({
                         key={tradeMark.trade_mark_id}
                         value={tradeMark.trade_mark_id}
                         selected={
-                          tradeMark.trade_mark_name_ar ==
-                          product?.productDetailDto[0].trade_mark
+                          tradeMark.trade_mark_id ==
+                          Number(product?.productDetailDto[0].trade_mark)
                         }
                       >
                         {tradeMark.trade_mark_name_en}
