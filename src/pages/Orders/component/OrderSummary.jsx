@@ -6,7 +6,7 @@ import { Modal, Form } from "react-bootstrap";
 import Orders from "../Orders";
 import { Link } from "react-router-dom";
 
-const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
+const OrderSummary = ({ selectedIndex, orders }) => {
   const data = [
     { title: "جاري التوصيل", count: 0 },
     { title: "تم التنفيذ", count: 0 },
@@ -51,14 +51,14 @@ const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
             disabled
           />
           <h2>الطلبات </h2>
-          {showDetails && selectedOrder ? (
+          {/* (
             <div className="order-info">
               <span className="order-details">
                 {selectedOrder.title} {selectedOrder.count}
               </span>
               <FontAwesomeIcon icon={faTimes} className="order-close-icon" />
             </div>
-          ) : null}
+          )} */}
         </div>
         <button className="order-edit-button" onClick={handleShowReleaseModal}>
           <i className="sicon-magic-wand flip-x"></i> تحرير سريع
@@ -71,9 +71,9 @@ const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
               <input type="checkbox" className="order-header-checkbox mx-2" />
             </div>
             <div className="order-details">
-              {showDetails && selectedOrder ? (
+              {/* (
                 <p style={{ color: "black" }}>لا توجد طلبات محددة</p>
-              ) : (
+              ) (
                 <Link to={`/order/${order.order_id}`}>
                   <p>
                     <span> {order.order_id} </span>
@@ -81,22 +81,28 @@ const OrderSummary = ({ selectedIndex, showDetails, orders }) => {
                     <span> </span>
                   </p>
                 </Link>
-              )}
+              ) */}
             </div>
           </div>
 
-          {showDetails && selectedOrder ? null : (
-            <div className="order-item-left">
-              <div className="order-item-left-1">
-                <p style={{ color: "black" }}>
-                  SAR {order.total_amount || order?.shopping_carddto[0]?.price}{" "}
-                </p>
-              </div>
-              <div className="order-item-left-2">
-                <p>منذ اليوم</p>
-              </div>
+          <div className="order-item-left">
+            <div className="order-item-left-1">
+              <p style={{ color: "black" }}>
+                SAR {order.total_amount || order?.shopping_carddto[0]?.price}{" "}
+              </p>
             </div>
-          )}
+            <div className="order-item-left-2">
+              <p>
+                {new Date(order.created_at).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
+          </div>
         </div>
       ))}
 
