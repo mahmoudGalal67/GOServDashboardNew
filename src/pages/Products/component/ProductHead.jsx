@@ -36,7 +36,7 @@ const ProductHead = ({ allProducts }) => {
       </div>
       <div className="header-left">
         <FilterModal allProducts={allProducts} />
-        <ServiceModal categories={categories} />
+        <ServiceModal setcategories={setcategories} categories={categories} />
       </div>
     </div>
   );

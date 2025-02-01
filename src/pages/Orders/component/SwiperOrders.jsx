@@ -116,17 +116,17 @@ const SwiperOrders = ({ onCardClick, selectedIndex }) => {
         <SwiperSlide key={index}>
           <div
             className={`swiper-item-orders ${
-              selectedIndex === index ? "selected" : ""
+              selectedIndex === item.title ? "selected" : ""
             }`}
             style={{
               borderColor: item.color,
               backgroundColor:
-                selectedIndex === index ? "#a6abc8" : "#e8f1f129",
+                selectedIndex === item.title ? "#a6abc8" : "#e8f1f129",
             }}
-            onClick={() => onCardClick(index)}
+            onClick={() => onCardClick(item.title)}
           >
             <div className="icon-Class-orders" style={{ color: item.color }}>
-              {selectedIndex === index ? (
+              {selectedIndex === item.title ? (
                 <div className="icons-class-header-orders">
                   <div className="icons-item-class-orders">
                     {item.iconOrder}

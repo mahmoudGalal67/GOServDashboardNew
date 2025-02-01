@@ -5,20 +5,39 @@ import "./OrderSummary.css";
 import { Modal, Form } from "react-bootstrap";
 import Orders from "../Orders";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Request } from "../../../components/utils/Request";
+import { dark } from "@mui/material/styles/createPalette";
 
-const OrderSummary = ({ selectedIndex, orders }) => {
-  const data = [
-    { title: "جاري التوصيل", count: 0 },
-    { title: "تم التنفيذ", count: 0 },
-    { title: "قيد التنفيذ", count: 0 },
-    { title: "بانتظار المراجعة", count: 0 },
-    { title: "بانتظار الدفع", count: 0 },
-    { title: "محذوف", count: 0 },
-  ];
+const Orderdata = [
+  {
+    title: "جاري التوصيل",
+  },
+  {
+    title: "تم التنفيذ",
+  },
+  {
+    title: "قيد التنفيذ",
+  },
+  {
+    title: "بانتظار المراجعة",
+  },
+  {
+    title: "بانتظار الدفع",
+  },
+  {
+    title: "محذوف",
+  },
+];
 
-  console.log(orders);
-
-  const selectedOrder = selectedIndex !== null ? data[selectedIndex] : null;
+const OrderSummary = ({
+  orders,
+  setselectedorders,
+  selectedorders,
+  setorders,
+}) => {
+  const [cookies, setCookie] = useCookies(["usertoken"]);
+  const currentUser = JSON.parse(localStorage.getItem("userInfo"));
 
   const handleShowReleaseModal = () => setShowReleaseModal(true);
   const handleCloseReleaseModal = () => setShowReleaseModal(false);
@@ -41,6 +60,74 @@ const OrderSummary = ({ selectedIndex, orders }) => {
   const [showExportDropdown, setShowExportDropdown] = useState(false);
 
   const [showImportDropdown, setShowImportDropdown] = useState(false);
+
+  const handlestate = async (state) => {
+    const updateOrderState = async () => {
+      try {
+        await Request({
+          url: `/api/Clients/updatestatus?id=${selectedorders[0]}&status=${state}`,
+          headers: {
+            Authorization: `Bearer ${cookies.usertoken}`,
+          },
+          method: "PUT",
+        });
+        setorders((prev) =>
+          prev.map((order) => {
+            if (selectedorders.includes(order.order_id)) {
+              return { ...order, status: state };
+            } else {
+              return order;
+            }
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    updateOrderState();
+  };
+
+  const deleteOrder = async () => {
+    if (selectedorders.length < 1) {
+      return;
+    }
+    const deletedorders = selectedorders.map((order) => ({ id: order }));
+    try {
+      await Request({
+        url: `/api/Clients/deleteordersbyadmin?uid=${currentUser.userId}`,
+        headers: {
+          Authorization: `Bearer ${cookies.usertoken}`,
+        },
+        method: "DELETE",
+        data: deletedorders,
+      });
+      setorders((prev) =>
+        prev.filter((order) => !selectedorders.includes(order.order_id))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleordersIDS = (e, id) => {
+    if (id == "all") {
+      if (!e.target.checked) {
+        setselectedorders((prev) => []);
+        return;
+      } else {
+        setselectedorders((prev) => []);
+        orders.map((order) => {
+          setselectedorders((prev) => [...prev, order.order_id]);
+        });
+        return;
+      }
+    }
+    if (selectedorders.includes(id)) {
+      setselectedorders(selectedorders.filter((orderID) => orderID != id));
+    } else {
+      setselectedorders([...selectedorders, id]);
+    }
+  };
   return (
     <div className="order-summary">
       <div className="order-header">
@@ -48,7 +135,11 @@ const OrderSummary = ({ selectedIndex, orders }) => {
           <input
             type="checkbox"
             className="order-header-checkbox mx-3"
-            disabled
+            onChange={(e) => handleordersIDS(e, "all")}
+            checked={
+              orders.length == selectedorders.length &&
+              selectedorders.length > 0
+            }
           />
           <h2>الطلبات </h2>
           {/* (
@@ -68,20 +159,22 @@ const OrderSummary = ({ selectedIndex, orders }) => {
         <div className="order-item" key={order.order_id}>
           <div className="order-item-right">
             <div className="order-actions">
-              <input type="checkbox" className="order-header-checkbox mx-2" />
+              <input
+                type="checkbox"
+                className="order-header-checkbox mx-2"
+                value={order.order_id}
+                onChange={(e) => handleordersIDS(e, order.order_id)}
+                checked={selectedorders.includes(order.order_id)}
+              />
             </div>
             <div className="order-details">
-              {/* (
-                <p style={{ color: "black" }}>لا توجد طلبات محددة</p>
-              ) (
-                <Link to={`/order/${order.order_id}`}>
-                  <p>
-                    <span> {order.order_id} </span>
-                    <span> عدد المنجات {order.shopping_carddto.length}</span>
-                    <span> </span>
-                  </p>
-                </Link>
-              ) */}
+              {/* <p style={{ color: "black" }}>لا توجد طلبات محددة</p> */}
+              <Link to={`/order/${order.order_id}`}>
+                <p>
+                  <span> {order.order_id} </span>
+                  <span> عدد المنتجات {order.shopping_carddto.length}</span>
+                </p>
+              </Link>
             </div>
           </div>
 
@@ -89,6 +182,7 @@ const OrderSummary = ({ selectedIndex, orders }) => {
             <div className="order-item-left-1">
               <p style={{ color: "black" }}>
                 SAR {order.total_amount || order?.shopping_carddto[0]?.price}{" "}
+                <span className="order-item-left-1">{order.status}</span>
               </p>
             </div>
             <div className="order-item-left-2">
@@ -131,16 +225,9 @@ const OrderSummary = ({ selectedIndex, orders }) => {
             </div>
             {showExportDropdown && (
               <div className="dropdown-content p-2">
-                <p>محذوف</p>
-                <p>بانتظار الدفع</p>
-                <p>بانتظار المراجعة</p>
-                <p>قيد التنفيذ</p>
-                <p>تم التنفيذ</p>
-                <p>جاري التوصيل</p>
-                <p>تم التوصيل</p>
-                <p>تم الشحن</p>
-                <p>ملغي</p>
-                <p>مسترجع</p>
+                {Orderdata.map((state) => (
+                  <p onClick={(e) => handlestate(state.title)}>{state.title}</p>
+                ))}
               </div>
             )}
           </div>
@@ -200,7 +287,7 @@ const OrderSummary = ({ selectedIndex, orders }) => {
               <i className="sicon-cash-payment"></i>
             </div>
           </div>
-          <div className="dropdown-item-service">
+          <div className="dropdown-item-service" onClick={deleteOrder}>
             <div className="text-container-service">
               <p>حذف الطلب</p>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import HeaderComponent from "./component/HeaderComponent";
 import RequestHead from "./component/RequestHead";
 import Swiper from "./component/SwiperOrders";
@@ -13,6 +13,8 @@ import { Request } from "../../components/utils/Request";
 function Orders({ darkMode, setDarkMode, userInfo }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+
+  const [selectedorders, setselectedorders] = useState([]);
 
   const currentUser = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -36,6 +38,9 @@ function Orders({ darkMode, setDarkMode, userInfo }) {
     };
     getorders();
   }, []);
+  let filterdOrders = selectedIndex
+    ? orders.filter((order) => order.status == selectedIndex)
+    : orders;
 
   const handleCardClick = (index) => {
     if (selectedIndex === index) {
@@ -76,9 +81,10 @@ function Orders({ darkMode, setDarkMode, userInfo }) {
           <RequestHead />
           <Swiper selectedIndex={selectedIndex} onCardClick={handleCardClick} />
           <OrderSummary
-            selectedIndex={selectedIndex}
-            showDetails={showDetails}
-            orders={orders}
+            setselectedorders={setselectedorders}
+            selectedorders={selectedorders}
+            orders={filterdOrders}
+            setorders={setorders}
           />
         </div>
       </main>
